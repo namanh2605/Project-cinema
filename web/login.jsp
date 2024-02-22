@@ -37,5 +37,17 @@
     <p style="color: red;">Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại.</p>
 <% } %>
 
+     <%
+String registrationSuccess = request.getParameter("registrationSuccess");
+if (registrationSuccess != null && registrationSuccess.equals("true")) {
+%>
+<p style="color: red;
+    font-weight: bold;">
+        Đăng ký thành công!
+    </p>
+<%
+}
+%>
+
 </body>
 </html>
