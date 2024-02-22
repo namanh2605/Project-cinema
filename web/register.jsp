@@ -57,7 +57,7 @@
   <% String error = request.getParameter("error");
 if (error != null && error.equals("1")) { %>
 <p style=" color: red;
-    font-weight: bold;">Đăng ký không thành công. Vui lòng thử lại.</p>
+    font-weight: bold;">Đăng ký không thành công. Vui lòng thử lại.(Trùng tên tài khoản hoặc email !)</p>
 <% } %>
 
 </body>
