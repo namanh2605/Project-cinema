@@ -110,7 +110,7 @@
                                 <nav class="site-nav" id="siteNav">
                                     <ul>
                                         <li><a href="home.jsp"  id="scheduleLink"> Trang Chủ</a></li>
-                                        <li><a href="show.jsp" id="movieLink" >Phim Đang Chiếu</a></li>
+                                        <li><a href="movies" id="movieLink" >Phim Đang Chiếu</a></li>
                                         <li><a href="#" id="newsLink">Tin Mới & Ưu Đãi</a></li>
                                         <li><a href="#" id="memberLink" style="padding-left: 40px" >Thành Viên</a></li>
                                     </ul>

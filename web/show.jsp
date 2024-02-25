@@ -111,7 +111,7 @@
                 <nav class="site-nav" id="siteNav">
                     <ul>
                         <li><a href="home.jsp"  id="scheduleLink"> Trang chủ</a></li>
-                        <li><a href="show.jsp" id="movieLink" >Phim Đang Chiếu</a></li>
+                        <li><a href="movies" id="movieLink" >Phim Đang Chiếu</a></li>
                         <li><a href="#" id="newsLink">Tin Mới & Ưu Đãi</a></li>
                         <li><a href="#" id="memberLink" style="padding-left: 40px" >Thành Viên</a></li>
                     </ul>
@@ -119,30 +119,30 @@
             </div>
         </header>
 
-      <section>
-    <div class="container">
-        <h1>Now Playing Movies</h1>
-        <div class="row">
-            <c:if test="${not empty movies}">
-                <c:forEach var="movie" items="${movies}">
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <img src="${movie.poster}" class="card-img-top" alt="${movie.title}">
-                            <div class="card-body">
-                                <h5 class="card-title">${movie.title}</h5>
-                                <p class="card-text">Director: ${movie.director}</p>
-                                <p class="card-text">Genre: ${movie.genre}</p>
+        <section>
+            <div class="container">
+                <h1>Now Playing Movies</h1>
+                <div class="row">
+                    <c:if test="${not empty movies}">
+                        <c:forEach var="movie" items="${movies}">
+                            <div class="col-md-4">
+                                <div class="card mb-4">
+                                    <img src="img/${movie.poster}" class="card-img-top" alt="${movie.title} ">
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="    color: #333 ;font-size: 15px;font-weight: bold;text-transform: none;">${movie.title}</h5>
+                                        <p class="card-text">Director: ${movie.director}</p>
+                                        <p class="card-text">Genre: ${movie.genre}</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </c:forEach>
-            </c:if>
-            <c:if test="${empty movies}">
-                <p>No movies found.</p>
-            </c:if>
-        </div>
-    </div>
-</section>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${empty movies}">
+                        <p>No movies found.</p>
+                    </c:if>
+                </div>
+            </div>
+        </section>
 
         <footer class="site-footer bg-dark text-light pt-4">
             <div class="container">

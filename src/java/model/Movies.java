@@ -22,14 +22,16 @@ public class Movies {
     public Movies() {
     }
 
-    public Movies(int movie_id, String title, String genre, Date release_date, String director, String Poster) {
+    public Movies(int movie_id, String title, String genre, Date release_date, String director, String poster) {
         this.movie_id = movie_id;
         this.title = title;
         this.genre = genre;
         this.release_date = release_date;
         this.director = director;
-        this.poster = Poster;
+        this.poster = poster;
     }
+    
+    
 
     public int getMovie_id() {
         return movie_id;
@@ -75,10 +77,9 @@ public class Movies {
         return poster;
     }
 
-    public void setPoster(String Poster) {
-        this.poster = Poster;
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
-    
-    
 
+    
 }
