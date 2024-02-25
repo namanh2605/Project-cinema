@@ -11,21 +11,24 @@ import java.util.Date;
  * @author admin
  */
 public class Movies {
+
     private int movie_id;
     private String title;
     private String genre;
     private Date release_date;
     private String director;
+    private String poster;
 
     public Movies() {
     }
 
-    public Movies(int movie_id, String title, String genre, Date release_date, String director) {
+    public Movies(int movie_id, String title, String genre, Date release_date, String director, String Poster) {
         this.movie_id = movie_id;
         this.title = title;
         this.genre = genre;
         this.release_date = release_date;
         this.director = director;
+        this.poster = Poster;
     }
 
     public int getMovie_id() {
@@ -68,7 +71,14 @@ public class Movies {
         this.director = director;
     }
 
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String Poster) {
+        this.poster = Poster;
+    }
+    
     
 
-    
 }
