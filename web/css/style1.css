@@ -7,7 +7,7 @@
 
 /* Global Styles */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: Verdana, Arial, sans-serif;
     background-color: #000;
     color: #fff;
     overflow-x:hidden;
@@ -94,7 +94,9 @@ body {
 /*  Section Styles */
 
 
+
   
+
 
   
   
@@ -325,4 +327,23 @@ body {
 .lang-english #hero-section {
     background-color: #000;
     color: #fff;
+}
+
+/* button */
+.buy-ticket-button {
+  background-color: #FF0000; /* Màu nền đỏ */
+  border: none;
+  color: white; /* Màu chữ trắng */
+  padding: 10px 20px; /* Đệm xung quanh nội dung */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px; /* Kích thước chữ */
+  margin: 4px 2px;
+  cursor: pointer; /* Con trỏ chuột hiển thị dạng bấm được */
+  border-radius: 4px; /* Bo góc của nút */
+}
+
+.buy-ticket-button:hover {
+  background-color: #cc0000; /* Màu nền đỏ đậm khi rê chuột vào */
 }

@@ -74,6 +74,13 @@
                 document.getElementById("companyText").innerText = "Hoa Lac Company";
             }
         }
+        function showVideo() {
+        var videoDiv = document.getElementById("video");
+        videoDiv.style.display = "block";
+
+        var videoFrame = document.getElementById("videoFrame");
+        videoFrame.src = "https://www.youtube.com/embed/TcMBFSGVi1c?rel=0";  
+        }
     </script>
     <body>
         <div class="pre-header">
@@ -110,7 +117,7 @@
             <div class="container">
                 <nav class="site-nav" id="siteNav">
                     <ul>
-                        <li><a href="home.jsp"  id="scheduleLink"> Trang chủ</a></li>
+                        <li><a href="home"  id="scheduleLink"> Trang chủ</a></li>
                         <li><a href="movies" id="movieLink" >Phim Đang Chiếu</a></li>
                         <li><a href="#" id="newsLink">Tin Mới & Ưu Đãi</a></li>
                         <li><a href="#" id="memberLink" style="padding-left: 40px" >Thành Viên</a></li>
@@ -121,19 +128,24 @@
 
         <section>
             <div class="container">
-                <h1>Now Playing Movies</h1>
+                <h1>Phim Đang Chiếu</h1><br/>
+                <div class="horizontal-bar"></div><br/>
                 <div class="row">
                     <c:if test="${not empty movies}">
                         <c:forEach var="movie" items="${movies}">
                             <div class="col-md-4">
-                                <div class="card mb-4">
-                                    <img src="img/${movie.poster}" class="card-img-top" alt="${movie.title} ">
+                                <div class="card mb-4 dark-bg">
+                                    <a href="${movie.trailerLink}" target="_blank">
+                                    <img src="img/${movie.poster}" class="card-img-top" alt="${movie.title}" height="260px" width="185px" style=" border: 6px solid #000000; display: inline-table " >
+                                    </a>
                                     <div class="card-body">
-                                        <h5 class="card-title" style="    color: #333 ;font-size: 15px;font-weight: bold;text-transform: none;">${movie.title}</h5>
-                                        <p class="card-text">Director: ${movie.director}</p>
-                                        <p class="card-text">Genre: ${movie.genre}</p>
+                                        <h5 class="card-title" style="color: #333; font-size: 15px; font-weight: bold; text-transform: none;">${movie.title}</h5>
+                                        <p class="card-text" style="font-weight: bold; font-size: 13px;">Director: ${movie.director}</p>
+                                        <p class="card-text" style="font-weight: bold; font-size: 13px;">Genre: ${movie.genre}</p>
+                                        <p class="card-text" style="font-weight: bold; font-size: 13px;">Release Date: ${movie.release_date}</p>
                                     </div>
                                 </div>
+                                    <button class="buy-ticket-button" style="padding-bottom: 10px">MUA VÉ</button><br/>
                             </div>
                         </c:forEach>
                     </c:if>
@@ -177,4 +189,13 @@
         </footer>
 
     </body>
+    <style>
+  .horizontal-bar {
+    width: 100%; /* Full width of the container */
+    height: 5px; /* Height of the bar */
+    background-color: #000; /* Black background color */
+    border-top: 1px solid black; /* Red top border */
+    border-bottom: 1px solid black; /* Red bottom border */
+  }
+</style>
 </html>

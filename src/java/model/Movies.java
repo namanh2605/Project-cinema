@@ -18,20 +18,20 @@ public class Movies {
     private Date release_date;
     private String director;
     private String poster;
+    private String trailerLink;
 
     public Movies() {
     }
 
-    public Movies(int movie_id, String title, String genre, Date release_date, String director, String poster) {
+    public Movies(int movie_id, String title, String genre, Date release_date, String director, String poster, String trailerLink) {
         this.movie_id = movie_id;
         this.title = title;
         this.genre = genre;
         this.release_date = release_date;
         this.director = director;
         this.poster = poster;
+        this.trailerLink = trailerLink;
     }
-    
-    
 
     public int getMovie_id() {
         return movie_id;
@@ -81,5 +81,16 @@ public class Movies {
         this.poster = poster;
     }
 
+    public String getTrailerLink() {
+        return trailerLink;
+    }
+
+    public void setTrailerLink(String trailerLink) {
+        this.trailerLink = trailerLink;
+    }
+    
+    
+
+   
     
 }

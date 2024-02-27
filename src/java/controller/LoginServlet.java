@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       String email = request.getParameter("email");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
         
         // Sử dụng LoginDAO để xác thực người dùng
@@ -79,7 +79,7 @@ public class LoginServlet extends HttpServlet {
         if (member != null) {
             // Nếu xác thực thành công, chuyển hướng đến trang home.jsp
             request.getSession().setAttribute("loggedInMember", member);
-            response.sendRedirect("home.jsp");
+            response.sendRedirect("home");
         } else {
             // Nếu xác thực thất bại, chuyển hướng đến trang login.jsp với thông báo lỗi
             response.sendRedirect("login.jsp?error=1");

@@ -12,7 +12,7 @@
     <title>Logout</title>
     <script>
         // Chuyển hướng trang sau khi đăng xuất
-        window.location.href = "home.jsp";
+        window.location.href = "home";
     </script>
 </head>
 <body>

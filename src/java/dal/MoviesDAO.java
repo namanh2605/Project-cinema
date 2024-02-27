@@ -28,6 +28,7 @@ public class MoviesDAO extends DBContext {
             movie.setGenre(rs.getString("genre"));
             movie.setPoster(rs.getString("poster"));
             movie.setRelease_date(rs.getDate("release_date")); // Đọc giá trị release_date từ ResultSet
+            movie.setTrailerLink(rs.getString("trailerLink"));
             movies.add(movie);
         }
     } catch (SQLException e) {
