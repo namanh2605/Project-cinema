@@ -60,6 +60,7 @@ public class MoviesServlet extends HttpServlet {
         List<Movies> movies = d.PlayingMovies();
         request.setAttribute("movies", movies);
         request.getRequestDispatcher("show.jsp").forward(request, response);
+
     } 
 
     /** 

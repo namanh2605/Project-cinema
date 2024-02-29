@@ -75,11 +75,14 @@
             }
         }
         function showVideo() {
-        var videoDiv = document.getElementById("video");
-        videoDiv.style.display = "block";
+            var videoDiv = document.getElementById("video");
+            videoDiv.style.display = "block";
 
-        var videoFrame = document.getElementById("videoFrame");
-        videoFrame.src = "https://www.youtube.com/embed/TcMBFSGVi1c?rel=0";  
+            var videoFrame = document.getElementById("videoFrame");
+            videoFrame.src = "https://www.youtube.com/embed/TcMBFSGVi1c?rel=0";
+        }
+        function buyTicket(movieId) {
+            window.location.href = "booking.jsp?movieId=" + movieId;
         }
     </script>
     <body>
@@ -136,7 +139,7 @@
                             <div class="col-md-4">
                                 <div class="card mb-4 dark-bg">
                                     <a href="${movie.trailerLink}" target="_blank">
-                                    <img src="img/${movie.poster}" class="card-img-top" alt="${movie.title}" height="260px" width="185px" style=" border: 6px solid #000000; display: inline-table " >
+                                        <img src="img/${movie.poster}" class="card-img-top" alt="${movie.title}" height="260px" width="185px" style=" border: 6px solid #000000; display: inline-table " >
                                     </a>
                                     <div class="card-body">
                                         <h5 class="card-title" style="color: #333; font-size: 15px; font-weight: bold; text-transform: none;">${movie.title}</h5>
@@ -145,7 +148,7 @@
                                         <p class="card-text" style="font-weight: bold; font-size: 13px;">Release Date: ${movie.release_date}</p>
                                     </div>
                                 </div>
-                                    <button class="buy-ticket-button" style="padding-bottom: 10px">MUA VÉ</button><br/>
+                                <button class="buy-ticket-button" style="padding-bottom: 10px" onclick="buyTicket(${movie.movie_id})">MUA VÉ</button><br/>
                             </div>
                         </c:forEach>
                     </c:if>
@@ -190,12 +193,12 @@
 
     </body>
     <style>
-  .horizontal-bar {
-    width: 100%; /* Full width of the container */
-    height: 5px; /* Height of the bar */
-    background-color: #000; /* Black background color */
-    border-top: 1px solid black; /* Red top border */
-    border-bottom: 1px solid black; /* Red bottom border */
-  }
-</style>
+        .horizontal-bar {
+            width: 100%; /* Full width of the container */
+            height: 5px; /* Height of the bar */
+            background-color: #000; /* Black background color */
+            border-top: 1px solid black; /* Red top border */
+            border-bottom: 1px solid black; /* Red bottom border */
+        }
+    </style>
 </html>
