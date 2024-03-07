@@ -32,13 +32,13 @@
     <h2>Đăng ký</h2>
     <form action="register" method="post"  onsubmit="return validateForm()">
         <div class="form-group">
-            <label for="name">Tên:</label>
-            <input type="text" id="name" name="name" required>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
         </div>
         <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
+            <label for="name">Name</label>
+        <input type="text" name="name" id="name" required><br>
+         </div>
         <div class="form-group">
             <label for="password">Mật khẩu:</label>
             <input type="password" id="password" name="password" required>

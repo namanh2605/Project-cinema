@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="model.Members" %>
+<%@ page import="model.Account" %>
 <%@ page import="javax.servlet.http.*" %>
-<%@ page import="model.Movies" %>
+<%@ page import="model.Film" %>
 <%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -81,10 +81,60 @@
             var videoFrame = document.getElementById("videoFrame");
             videoFrame.src = "https://www.youtube.com/embed/TcMBFSGVi1c?rel=0";
         }
-        function buyTicket(movieId) {
-            window.location.href = "booking.jsp?movieId=" + movieId;
+        function buyTicket(filmId) {
+            window.location.href = "booking.jsp?filmId=" + filmId;
         }
     </script>
+    <style>
+        body {
+            background-color: #121212; /* Dark background */
+            color: #fff; /* White text */
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Space between cards */
+            justify-content: center;
+        }
+        .card {
+            width: 260px; /* Card width */
+            background-color: #1e1e1e; /* Dark card background */
+            border: 6px solid #000; /* Black border */
+            border-radius: 10px; /* Rounded corners */
+        }
+        .card img {
+            width: 100%; /* Make image fill the card */
+            border-top-left-radius: 4px; /* Rounded corners for image */
+            border-top-right-radius: 4px;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .card-title {
+            margin: 0;
+            font-size: 18px; /* Larger title font */
+            font-weight: bold;
+        }
+        .card-text {
+            margin: 5px 0; /* Spacing around text */
+            font-weight: bold;
+        }
+        .buy-ticket-button {
+            background-color: #f90; /* Orange button */
+            color: #000; /* Black text on button */
+            border: none;
+            border-radius: 5px; /* Rounded button edges */
+            padding: 10px 20px; /* Adjust button padding */
+            font-weight: bold;
+            cursor: pointer;
+            display: block; /* Change to inline-block */
+            max-width: 100%; /* Ensure button doesn't exceed container width */
+            margin: 10px 80px;
+            text-align: center; /* Center button text */
+        }
+    </style>
     <body>
         <div class="pre-header">
 
@@ -92,13 +142,12 @@
 
                 <div class="header-right">
 
-                    <%
-                       // Kiểm tra xem session có tồn tại không trước khi sử dụng
-                       HttpSession sessionObject = request.getSession(false);
-                       Members loggedInMember = null;
-                       if(sessionObject != null) {
-                       loggedInMember = (Members) sessionObject.getAttribute("loggedInMember");
-                    }
+                    <% 
+       HttpSession sessionObj = request.getSession(false);
+       Account loggedInMember = null;
+       if (sessionObj != null) {
+           loggedInMember = (Account) sessionObj.getAttribute("loggedInAccount");
+       }
                     %>
                     <div class="language-selector">
                         <img src="img/vietnam.png" alt="Vietnamese" class="language-icon" onclick="changeLanguage()">
@@ -134,25 +183,23 @@
                 <h1>Phim Đang Chiếu</h1><br/>
                 <div class="horizontal-bar"></div><br/>
                 <div class="row">
-                    <c:if test="${not empty movies}">
-                        <c:forEach var="movie" items="${movies}">
+                    <c:if test="${not empty films}">
+                        <c:forEach var="movie" items="${films}">
                             <div class="col-md-4">
                                 <div class="card mb-4 dark-bg">
-                                    <a href="${movie.trailerLink}" target="_blank">
-                                        <img src="img/${movie.poster}" class="card-img-top" alt="${movie.title}" height="260px" width="185px" style=" border: 6px solid #000000; display: inline-table " >
+                                    <a href="${movie.trailer}" target="_blank">
+                                        <img src="img/${movie.image}" class="card-img-top" alt="${movie.filmName}" height="260px" width="185px" style="border: 6px solid #000000; display: inline-table;">
                                     </a>
                                     <div class="card-body">
-                                        <h5 class="card-title" style="color: #333; font-size: 15px; font-weight: bold; text-transform: none;">${movie.title}</h5>
-                                        <p class="card-text" style="font-weight: bold; font-size: 13px;">Director: ${movie.director}</p>
-                                        <p class="card-text" style="font-weight: bold; font-size: 13px;">Genre: ${movie.genre}</p>
-                                        <p class="card-text" style="font-weight: bold; font-size: 13px;">Release Date: ${movie.release_date}</p>
+                                        <h5 class="card-title" style="color: #333; font-size: 15px; font-weight: bold; text-transform: none;">${movie.filmName}</h5>
+                                        <p class="card-text" style="font-weight: bold; font-size: 13px;">Duration: ${movie.duration}</p>
                                     </div>
                                 </div>
-                                <button class="buy-ticket-button" style="padding-bottom: 10px" onclick="buyTicket(${movie.movie_id})">MUA VÉ</button><br/>
+                                <button class="buy-ticket-button" style="padding-bottom: 10px" onclick="buyTicket(${movie.filmId})">Chi tiết</button><br/>
                             </div>
                         </c:forEach>
                     </c:if>
-                    <c:if test="${empty movies}">
+                    <c:if test="${empty films}">
                         <p>No movies found.</p>
                     </c:if>
                 </div>

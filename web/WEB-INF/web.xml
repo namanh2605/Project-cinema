@@ -16,6 +16,22 @@
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>controller.HomeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FilmServlet</servlet-name>
+        <servlet-class>controller.FilmServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CinemaServlet</servlet-name>
+        <servlet-class>controller.CinemaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowtimeServlet</servlet-name>
+        <servlet-class>controller.ShowtimeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookingServlet</servlet-name>
+        <servlet-class>controller.BookingServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -31,5 +47,21 @@
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilmServlet</servlet-name>
+        <url-pattern>/film</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CinemaServlet</servlet-name>
+        <url-pattern>/chooseCinema</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowtimeServlet</servlet-name>
+        <url-pattern>/showtime</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingServlet</servlet-name>
+        <url-pattern>/film_detail</url-pattern>
     </servlet-mapping>
 </web-app>
