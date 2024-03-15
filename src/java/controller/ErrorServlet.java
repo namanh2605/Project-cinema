@@ -4,7 +4,6 @@
  */
 package controller;
 
-import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-public class RegisterServlet extends HttpServlet {
+public class ErrorServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +34,10 @@ public class RegisterServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterServlet</title>");
+            out.println("<title>Servlet ErrorServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ErrorServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,7 +55,8 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        request.getRequestDispatcher("404.jsp").forward(request, response);
     }
 
     /**
@@ -70,18 +70,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        AccountDAO d = new AccountDAO();
-        boolean registrationStatus = d.register(username, password, name ,email);
-
-        if (registrationStatus == true) {
-            response.sendRedirect("login.jsp?registrationSuccess=true");
-        } else {
-            response.sendRedirect("register.jsp?error=1");
-        }
+        processRequest(request, response);
     }
 
     /**

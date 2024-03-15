@@ -9,6 +9,25 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
+
+    <%
+ HttpSession sessionObj = request.getSession(); // Lấy hoặc tạo session nếu chưa tồn tại
+ Account loggedInMember = null;
+   loggedInMember = (Account) sessionObj.getAttribute("loggedInAccount");
+ String filmIdStr = request.getParameter("filmId");
+ int filmId = 0;
+ if (filmIdStr != null && !filmIdStr.isEmpty()) {
+     try {
+         filmId = Integer.parseInt(filmIdStr);
+     } catch (NumberFormatException e) {
+         e.printStackTrace();
+     }
+ }
+
+ FilmDAO filmDAO = new FilmDAO();
+ Film movie = filmDAO.getFilmById(filmId);
+ if (movie != null) {
+    %>
     <head>
         <meta charset="UTF-8">
         <title>Movie Information</title>
@@ -112,35 +131,16 @@
                 <h1>Nội Dung Phim</h1>
             </div>
             <div class="movie-details">
-                <%
-     String filmIdStr = request.getParameter("filmId"); // Nhận giá trị filmId từ request dưới dạng chuỗi
-     int filmId = 0; // Khởi tạo biến filmId
-    
-     if (filmIdStr != null && !filmIdStr.isEmpty()) { // Kiểm tra xem chuỗi có giá trị hay không
-         try {
-             filmId = Integer.parseInt(filmIdStr); // Chuyển đổi chuỗi sang số nguyên
-         } catch (NumberFormatException e) {
-             // Xử lý nếu không thể chuyển đổi
-             e.printStackTrace(); // In ra lỗi để debug
-         }
-     }
-                %>
-                <%
-FilmDAO d = new FilmDAO(); 
-Film movie = d.getFilmById(filmId); 
-    
-if (movie != null) { // Kiểm tra xem đối tượng movie có khác null hay không
-                %>
-                <a href="<%= movie.getTrailer() %>" target="_blank"> <!-- target="_blank" để mở link trong tab mới -->
+                <a href="<%= movie.getTrailer() %>" target="_blank">
                     <img src="img/<%= movie.getImage() %>" class="card-img-top" alt="<%= movie.getFilmName() %>" height="260px" width="185px" style="border: 6px solid #000000; display: inline-table;">
                 </a>
                 <div class="text-details">
                     <h2><%= movie.getFilmName() %></h2>
                     <p>Director: <%= movie.getDirector() %></p>
                     <p>Duration: <%= movie.getDuration() %></p>
-                    <%
-    GenreDAO genreDAO = new GenreDAO();
-    String genreName = genreDAO.getGenreNameById(movie.getGenreId());
+                    <% 
+                        GenreDAO genreDAO = new GenreDAO();
+                        String genreName = genreDAO.getGenreNameById(movie.getGenreId());
                     %>
                     <p>Genre: <%= genreName %></p>
                     <p>Cast: <%= movie.getCast() %></p>
@@ -148,22 +148,33 @@ if (movie != null) { // Kiểm tra xem đối tượng movie có khác null hay 
                     <p>Age Rating: <%= movie.getAgeRating() %></p>
                     <p>Description: <%= movie.getDescription() %></p>
                     <!-- Các thông tin khác về phim -->
-
                 </div>
-                <%
+            </div>
+            <div>
+                <% 
+     if (loggedInMember != null && loggedInMember.getUsername() != null) {
+                %>
+                <!-- Hiển thị nút "Đặt vé" chỉ khi đã đăng nhập -->
+                <form action="chooseCinema" method="get">
+                    <input type="hidden" name="filmId" value="<%= filmId %>">
+                    <button type="submit">Đặt Vé</button>
+                </form>
+                <% 
                     } else {
-                        // Xử lý trường hợp movie là null, có thể thông báo lỗi hoặc xử lý khác tùy vào yêu cầu của bạn
-                        out.println("Không tìm thấy thông tin phim");
+                        // Nếu chưa đăng nhập, hiển thị thông báo yêu cầu đăng nhập
+                        out.println("<h1 style=\"color:red\">Please login to booking ticket.</h1>");
+                        out.println("<form action=\"login.jsp\" method=\"get\">");
+                        out.println("<button type=\"submit\">Go to Login</button>");
+                        out.println("</form>");
                     }
                 %>
-
-                <div>
-                    <form action="chooseCinema" method="get"> <!-- Chuyển hướng đến trang chọn rạp khi submit form -->
-                        <input type="hidden" name="filmId" value="<%= filmId %>"> <!-- Truyền filmId qua trang chọn rạp -->
-                        <button type="submit">Buy Tickets</button>
-                    </form>
-                </div>
-                <!-- More content can be added here -->
             </div>
+        </div>
     </body>
 </html>
+<%
+} else {
+    // Nếu không tìm thấy thông tin phim, hiển thị thông báo
+    out.println("Không tìm thấy thông tin phim.");
+}
+%>

@@ -31,7 +31,7 @@ label {
     font-weight: bold;
     color: #fff; /* Đổi màu chữ thành trắng */
 }
-
+input[type="email"],
 input[type="text"],
 input[type="password"] {
     width: 100%;

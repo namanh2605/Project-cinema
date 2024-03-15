@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-public class RegisterServlet extends HttpServlet {
+public class ResetPasswordServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +35,10 @@ public class RegisterServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterServlet</title>");
+            out.println("<title>Servlet ResetPasswordServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ResetPasswordServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -70,17 +70,24 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
         String email = request.getParameter("email");
-        AccountDAO d = new AccountDAO();
-        boolean registrationStatus = d.register(username, password, name ,email);
+        String newPassword = request.getParameter("newPassword");
+        String confirmPassword = request.getParameter("confirmPassword");
 
-        if (registrationStatus == true) {
-            response.sendRedirect("login.jsp?registrationSuccess=true");
+        if (newPassword.equals(confirmPassword)) {
+            AccountDAO dao = new AccountDAO();
+            boolean passwordUpdated = dao.updatePassword(email, newPassword);
+
+            if (passwordUpdated) {
+                request.getSession().setAttribute("passwordChanged", true);
+                response.sendRedirect("login.jsp");
+            } else {
+                request.setAttribute("errorMessage", "Đã xảy ra lỗi khi cập nhật mật khẩu. Vui lòng thử lại sau.");
+                request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
+            }
         } else {
-            response.sendRedirect("register.jsp?error=1");
+            request.setAttribute("errorMessage", "Mật khẩu mới và xác nhận mật khẩu không khớp. Vui lòng nhập lại.");
+            request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
         }
     }
 

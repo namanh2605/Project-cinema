@@ -32,6 +32,30 @@
         <servlet-name>BookingServlet</servlet-name>
         <servlet-class>controller.BookingServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SeatServlet</servlet-name>
+        <servlet-class>controller.SeatServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ErrorServlet</servlet-name>
+        <servlet-class>controller.ErrorServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserVerify</servlet-name>
+        <servlet-class>VerifyEmail.UserVerify</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <servlet-class>controller.ResetPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>controller.ForgotPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerificationCodeServlet</servlet-name>
+        <servlet-class>controller.VerificationCodeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -64,4 +88,32 @@
         <servlet-name>BookingServlet</servlet-name>
         <url-pattern>/film_detail</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SeatServlet</servlet-name>
+        <url-pattern>/seat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ErrorServlet</servlet-name>
+        <url-pattern>/error</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserVerify</servlet-name>
+        <url-pattern>/userVerify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <url-pattern>/resetpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/forgotpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerificationCodeServlet</servlet-name>
+        <url-pattern>/verifycode</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+    </error-page>
 </web-app>

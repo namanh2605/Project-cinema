@@ -67,7 +67,7 @@
         <div>
             <c:forEach var="showtime" items="${showtimes}">
                 <div class="showtime-box">
-                    <a href="bookTicket.jsp?cinemaId=${showtime.roomId}&filmId=${showtime.filmId}&showtimeId=${showtime.showtimeId}">
+                    <a href="seat?cinemaId=${showtime.roomId}&filmId=${showtime.filmId}&showtimeId=${showtime.showtimeId}&roomId=${showtime.roomId}">
                         <div>StartTime: <fmt:formatDate value="${showtime.startTime}" pattern="HH:mm:ss" /></div>
                         <div>Date: <fmt:formatDate value="${showtime.date}" pattern="dd/MM/yyyy" /></div>
                         <div>Room : ${showtime.roomId}</div>

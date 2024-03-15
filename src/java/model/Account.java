@@ -13,15 +13,17 @@ public class Account {
     private String name;
     private String password;
     private boolean admin;
+    private String email;
 
     public Account() {
     }
 
-    public Account(String username, String name, String password, boolean admin) {
+    public Account(String username, String name, String password, boolean admin, String email) {
         this.username = username;
         this.name = name;
         this.password = password;
         this.admin = admin;
+        this.email = email;
     }
 
     public String getUsername() {
@@ -55,6 +57,14 @@ public class Account {
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
-    
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+      
     
 }

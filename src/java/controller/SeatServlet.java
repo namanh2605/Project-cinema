@@ -4,19 +4,22 @@
  */
 package controller;
 
-import dal.AccountDAO;
+import dal.SeatDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+
+import model.Seat;
 
 /**
  *
  * @author admin
  */
-public class RegisterServlet extends HttpServlet {
+public class SeatServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +38,10 @@ public class RegisterServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterServlet</title>");
+            out.println("<title>Servlet SeatServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SeatServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,7 +59,31 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String roomIdStr = request.getParameter("roomId");
+        int roomId = 0;
+        if (roomIdStr != null && !roomIdStr.isEmpty()) {
+            try {
+                roomId = Integer.parseInt(roomIdStr);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
+        SeatDAO d = new SeatDAO();
+        List<Seat> seats = d.getSeatsByRoomId(roomId);
+
+        // Kiểm tra nếu request có chứa parameter "selectedSeats"
+        String[] selectedSeats = request.getParameterValues("selectedSeats");
+        if (selectedSeats != null) {
+            // Lặp qua các ghế đã chọn và cập nhật trạng thái của chúng trong cơ sở dữ liệu
+            for (String seatIdStr : selectedSeats) {
+                int seatId = Integer.parseInt(seatIdStr);
+                d.updateSeatOccupancy(seatId, true); // Cập nhật trạng thái ghế đã chọn
+            }
+        }
+
+        request.setAttribute("seats", seats);
+        request.getRequestDispatcher("bookseat.jsp").forward(request, response);
     }
 
     /**
@@ -70,18 +97,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        AccountDAO d = new AccountDAO();
-        boolean registrationStatus = d.register(username, password, name ,email);
-
-        if (registrationStatus == true) {
-            response.sendRedirect("login.jsp?registrationSuccess=true");
-        } else {
-            response.sendRedirect("register.jsp?error=1");
-        }
+        processRequest(request, response);
     }
 
     /**

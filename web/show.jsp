@@ -170,7 +170,7 @@
                 <nav class="site-nav" id="siteNav">
                     <ul>
                         <li><a href="home"  id="scheduleLink"> Trang chủ</a></li>
-                        <li><a href="movies" id="movieLink" >Phim Đang Chiếu</a></li>
+                        <li><a href="film" id="movieLink" >Phim Đang Chiếu</a></li>
                         <li><a href="#" id="newsLink">Tin Mới & Ưu Đãi</a></li>
                         <li><a href="#" id="memberLink" style="padding-left: 40px" >Thành Viên</a></li>
                     </ul>

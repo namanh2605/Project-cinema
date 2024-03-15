@@ -48,16 +48,17 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
-    public boolean register(String username, String password, String name) {
+    public boolean register(String username, String password, String name,String email) {
         if (isUsernameTaken(username)) {
             return false;
         }
 
-        String sql = "INSERT INTO account (username, password, name) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO account (username, password, name, email) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, username);
             ps.setString(2, password);
             ps.setString(3, name);
+            ps.setString(4, email);
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -78,9 +79,45 @@ public class AccountDAO extends DBContext {
             return false;
         }
     }
+     private boolean isEmailTaken(String email) {
+        String sql = "SELECT * FROM account WHERE email = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next(); 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+      public boolean updatePassword(String email, String newPassword) {
+          String sql="UPDATE account SET password = ? WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, newPassword);
+            statement.setString(2, email);
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+       public boolean checkEmailExistsInDatabase(String email) {
+        String sql = "SELECT * FROM account WHERE email = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next(); 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public static void main(String[] args) {
         AccountDAO d = new AccountDAO();
-        System.out.println(d.checkLogin("user0", "123456"));
+        System.out.println(d.checkEmailExistsInDatabase("namanhnguyen2605@gmail.com"));
     }
 }

@@ -14,16 +14,18 @@ public class Seat {
     private int row;
     private int seatColumn;
     private int roomId;
+     private boolean isOccupied;
 
     public Seat() {
     }
 
-    public Seat(int seatId, String seatName, int row, int seatColumn, int roomId) {
+    public Seat(int seatId, String seatName, int row, int seatColumn, int roomId, boolean isOccupied) {
         this.seatId = seatId;
         this.seatName = seatName;
         this.row = row;
         this.seatColumn = seatColumn;
         this.roomId = roomId;
+        this.isOccupied = isOccupied;
     }
 
     public int getSeatId() {
@@ -64,6 +66,14 @@ public class Seat {
 
     public void setRoomId(int roomId) {
         this.roomId = roomId;
+    }
+
+    public boolean isIsOccupied() {
+        return isOccupied;
+    }
+
+    public void setIsOccupied(boolean isOccupied) {
+        this.isOccupied = isOccupied;
     }
     
 }
