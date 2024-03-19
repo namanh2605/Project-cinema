@@ -11,14 +11,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Film;
+import java.sql.Date;
 
 /**
  *
  * @author admin
  */
-public class AdminFilmServlet extends HttpServlet {
+public class AddFilmServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +36,10 @@ public class AdminFilmServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminFilmServlet</title>");
+            out.println("<title>Servlet AddFilmServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminFilmServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddFilmServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,10 +57,7 @@ public class AdminFilmServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        FilmDAO d = new FilmDAO();
-         List<Film> films = d.getAllFilms();
-        request.setAttribute("films", films);
-        request.getRequestDispatcher("adminfilm.jsp").forward(request, response);
+        request.getRequestDispatcher("addFilm.jsp").forward(request, response);
     }
 
     /**
@@ -75,7 +71,26 @@ public class AdminFilmServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String filmName = request.getParameter("filmName");
+        int duration = Integer.parseInt(request.getParameter("duration"));
+        String description = request.getParameter("description");
+        String image = request.getParameter("image");
+        String trailer = request.getParameter("trailer");
+        int genreId = Integer.parseInt(request.getParameter("genreId"));
+        String director = request.getParameter("director");
+        String cast = request.getParameter("cast");
+        Date releaseDate = Date.valueOf(request.getParameter("releaseDate")); // Cần chuyển đổi từ String thành Date
+        String ageRating = request.getParameter("ageRating");
+
+        FilmDAO filmDAO = new FilmDAO();
+
+        boolean success = filmDAO.addFilm(filmName, duration, description, image, trailer, genreId, director, cast, releaseDate, ageRating);
+
+        if (success) {
+            response.sendRedirect("admin.jsp?addSuccess=true");
+        } else {
+            response.sendRedirect("admin.jsp?addSuccess=false");
+        }
     }
 
     /**

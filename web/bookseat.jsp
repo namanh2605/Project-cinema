@@ -121,11 +121,8 @@ loggedInMember = (Account) sessionObj.getAttribute("loggedInAccount");
                 <input type="hidden" id="selectedSeatsInput" name="selectedSeatsString">
                 <button type="button" onclick="bookTickets()">Đặt vé</button>
             </form>
-            <button type="button" onclick="redirectToVnPay()">Thanh toán</button>
             <script>
-                function redirectToVnPay() {
-                    window.location.href = 'vnpay_pay.jsp'; // Chuyển hướng đến trang vn_pay.jsp
-                }
+             
                 var selectedSeats = []; // Khởi tạo mảng lưu trữ các ghế được chọn
 
                 function selectSeat(button, seatId) {

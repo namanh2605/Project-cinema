@@ -18,6 +18,7 @@ public class Ticket {
     private Seat seat;
     private String bookingDate;
     private Film film;
+    private double price;
     private Cinema cinema;
 
     public Ticket() {
@@ -90,6 +91,13 @@ public class Ticket {
     public void setRoom(Room room) {
         this.room = room;
     }
+     public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public Seat getSeat() {
         return seat;
@@ -102,6 +110,7 @@ public class Ticket {
     public String getBookingDate() {
         return bookingDate;
     }
+    
 
     public void setBookingDate(String bookingDate) {
         this.bookingDate = bookingDate;

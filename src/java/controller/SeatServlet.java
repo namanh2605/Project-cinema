@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 import model.Seat;
@@ -59,7 +60,19 @@ public class SeatServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession sessionObj = request.getSession(); // Lấy hoặc tạo một session
+        String cinemaId = request.getParameter("cinemaId");
+        String filmId = request.getParameter("filmId");
+        String showtimeId = request.getParameter("showtimeId");
         String roomId = request.getParameter("roomId");
+        String selectedSeatsStr = request.getParameter("selectedSeatsString");
+        // Đặt các giá trị vào session
+        sessionObj.setAttribute("cinemaId", cinemaId);
+        sessionObj.setAttribute("filmId", filmId);
+        sessionObj.setAttribute("showtimeId", showtimeId);
+        sessionObj.setAttribute("roomId", roomId);
+        sessionObj.setAttribute("selectedSeatsStr", selectedSeatsStr);
+        
         SeatDAO d = new SeatDAO();
         List<Seat> seats = d.getSeatsByRoomId(Integer.parseInt(roomId));
 

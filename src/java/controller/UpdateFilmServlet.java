@@ -11,14 +11,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.sql.Date;
 import model.Film;
 
 /**
  *
  * @author admin
  */
-public class AdminFilmServlet extends HttpServlet {
+public class UpdateFilmServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +37,10 @@ public class AdminFilmServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminFilmServlet</title>");
+            out.println("<title>Servlet UpdateFilmServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminFilmServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateFilmServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,10 +58,11 @@ public class AdminFilmServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int filmId = Integer.parseInt(request.getParameter("filmId"));
         FilmDAO d = new FilmDAO();
-         List<Film> films = d.getAllFilms();
-        request.setAttribute("films", films);
-        request.getRequestDispatcher("adminfilm.jsp").forward(request, response);
+        Film film = d.getFilmById(filmId);
+        request.setAttribute("film", film);
+        request.getRequestDispatcher("updateFilm.jsp").forward(request, response);
     }
 
     /**
@@ -75,7 +76,27 @@ public class AdminFilmServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int filmId = Integer.parseInt(request.getParameter("filmId"));
+        String filmName = request.getParameter("filmName");
+        int duration = Integer.parseInt(request.getParameter("duration"));
+        String description = request.getParameter("description");
+        String image = request.getParameter("image");
+        String trailer = request.getParameter("trailer");
+        int genreId = Integer.parseInt(request.getParameter("genreId"));
+        String director = request.getParameter("director");
+        String cast = request.getParameter("cast");
+        Date releaseDate = Date.valueOf(request.getParameter("releaseDate")); // Chú ý: Đây là cách đơn giản, không an toàn cho tất cả các định dạng ngày, bạn nên xử lý ngoại lệ và kiểm tra ngày đầu vào
+        String ageRating = request.getParameter("ageRating");
+        FilmDAO d = new FilmDAO();
+         boolean updateSuccess = d.updateFilmById(filmId, filmName, duration, description, image, trailer, genreId, director, cast, releaseDate, ageRating);
+
+        if (updateSuccess) {
+            // Nếu cập nhật thành công, chuyển hướng về trang admin.jsp và gửi thông báo thành công
+            response.sendRedirect("admin.jsp?updateSuccess=true");
+        } else {
+            // Nếu không cập nhật được, chuyển hướng về trang admin.jsp và gửi thông báo không thành công
+            response.sendRedirect("admin.jsp?updateSuccess=false");
+        }
     }
 
     /**

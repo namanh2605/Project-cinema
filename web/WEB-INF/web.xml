@@ -4,6 +4,22 @@
         <servlet-name>NewServlet</servlet-name>
         <servlet-class>controller.NewServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminFilmDetailsServlet</servlet-name>
+        <servlet-class>controller.AdminFilmDetailsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateFilmServlet</servlet-name>
+        <servlet-class>controller.UpdateFilmServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddFilmServlet</servlet-name>
+        <servlet-class>controller.AddFilmServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TicketSalesServlet</servlet-name>
+        <servlet-class>controller.TicketSalesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TicketServlet</servlet-name>
         <url-pattern>/ticket</url-pattern>
@@ -11,6 +27,22 @@
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/new</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminFilmDetailsServlet</servlet-name>
+        <url-pattern>/adminfilmdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFilmServlet</servlet-name>
+        <url-pattern>/updateFilm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddFilmServlet</servlet-name>
+        <url-pattern>/addFilm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TicketSalesServlet</servlet-name>
+        <url-pattern>/ticketSales</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

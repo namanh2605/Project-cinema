@@ -64,11 +64,20 @@
         <p><strong>Phòng:</strong> ${room.roomName}</p>
         <p><strong>Ghế số:</strong> ${selectedSeats}</p>
     </div>
+    
     <form action="ticket" method="post">
         <input type="hidden" name="username" value="${loggedInAccount.getUsername()}">
         <input type="hidden" name="showtimeId" value="${showtime.getShowtimeId()}">
         <input type="hidden" name="selectedSeats" value="${param.selectedSeats}">
         <button type="submit">Confirm</button>
     </form>
+        <button type="button" onclick="redirectToVnPay()">Thanh toán</button>
+        
+        
 </body>
 </html>
+<script>
+    function redirectToVnPay() {
+                    window.location.href = 'vnpay_pay.jsp'; // Chuyển hướng đến trang vn_pay.jsp
+                }
+</script>

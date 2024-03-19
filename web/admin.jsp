@@ -1,188 +1,131 @@
-<%-- 
-    Document   : admin
-    Created on : Mar 7, 2024, 12:48:38 AM
-    Author     : admin
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="model.Film" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.Account" %>
+<%
+    HttpSession sessionObj = request.getSession();
+    Account loggedInMember = (Account) sessionObj.getAttribute("loggedInAccount");
+    if (loggedInMember == null) {
+        // Redirect to login page if not logged in
+        response.sendRedirect("login.jsp");
+    }
+%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin Dashboard</title>
+        <title>Manage Films</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <style>
-            body {
-                margin: 0;
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-            }
             .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
                 height: 100%;
                 width: 250px;
-                position: fixed;
-                z-index: 1;
-                top: 0;
-                left: 0;
-                background-color: #2a2a2a;
-                overflow-x: hidden;
+                background-color: #343a40;
                 padding-top: 20px;
+                color: #fff;
             }
-            .sidebar h2 {
-                color: white;
-                text-align: center;
-            }
+
             .sidebar a {
                 padding: 10px 15px;
                 text-decoration: none;
-                font-size: 16px;
-                color: white;
+                font-size: 18px;
                 display: block;
-                border-bottom: 1px solid #444;
             }
+
             .sidebar a:hover {
-                background-color: #575757;
+                background-color: #495057;
             }
-            .content {
-                margin-left: 250px;
-                padding: 20px;
-                height: auto;
-                background-color: #fff;
+
+            .sidebar .nav-icon {
+                margin-right: 10px;
             }
-            .header {
-                background-color: #333;
-                color: white;
-                text-align: right;
-                padding: 10px 20px;
-                position: fixed;
-                width: calc(100% - 250px);
-                top: 0;
-                right: 0;
+
+            .sidebar .right {
+                float: right;
             }
-            .header a {
-                color: white;
-                text-decoration: none;
+
+            .sidebar .nav-link.active {
+                background-color: #adb5bd;
             }
-            .header a:hover {
-                text-decoration: underline;
-            }
-            .sub-menu {
-                display: none;
-            }
-            .sub-menu a {
+
+            .sidebar .nav-treeview {
                 padding-left: 20px;
-                color: white;
+            }
+
+            .sidebar .nav-treeview .nav-link {
+                padding-left: 30px;
             }
         </style>
     </head>
     <body>
-        <%HttpSession sessionObj = request.getSession(); // Lấy hoặc tạo session nếu chưa tồn tại
- Account loggedInMember = null;
-loggedInMember = (Account) sessionObj.getAttribute("loggedInAccount");%>
         <div class="sidebar">
-            <h2>Admin</h2>
-            <a href="" id="manageMoviesLink">Quản lý phim <i class="fas fa-angle-down"></i></a>
-            <div class="sub-menu" id="movieSubMenu">
-                <a href="adminfilm" id="showMoviesLink">Hiển thị danh sách phim</a>
-                <a href="#" id="addMovieLink">Thêm phim mới</a>
-                <a href="#" id="deleteMovieLink">Xóa phim</a>
-            </div>
-            <a href="#manageCinemas">Quản lý rạp chiếu phim</a>
-            <a href="#manageSchedules">Quản lý lịch chiếu phim</a>
-            <a href="#statistics">Báo cáo thống kê</a>
-            <!-- Additional sidebar items can be added here -->
+            <nav class="mt-2">
+                <ul class="nav flex-column nav-sidebar" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview" id="menu-movie">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <span>Quản lý phim</span>
+                            <i class="right fas fa-angle-left"></i>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="adminfilm" class="nav-link active">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <span>Danh sách các bộ phim</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="addFilm" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <span>Thêm mới bộ phim</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ticketSales" class="nav-link"> <!-- Thêm liên kết mới -->
+                            <i class="nav-icon fas fa-chart-bar"></i> <!-- Icon của biểu đồ hoặc biểu đồ -->
+                            <span>Thống kê phim</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-
-        <div class="header">
-            <a href="logout.jsp">Đăng xuất</a>
+        <div style="text-align: center; margin-top: 20px;">
+            <% if ("true".equals(request.getParameter("deleteSuccess"))) { %>
+            <p style="color: green;">Xoá phim thành công</p>
+            <% } else if ("false".equals(request.getParameter("deleteSuccess"))) { %>
+            <p style="color: red;">Đã xảy ra lỗi khi xoá phim</p>
+            <% } %>
         </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <% if ("true".equals(request.getParameter("updateSuccess"))) { %>
+            <p style="color: green;">Cập nhât thành công</p>
+            <% } else if ("false".equals(request.getParameter("updateSuccess"))) { %>
+            <p style="color: red;">Đã xảy ra lỗi khi cập nhật</p>
+            <% } %>
+        </div> 
+        <div style="text-align: center; margin-top: 20px;">
+            <% if ("true".equals(request.getParameter("addSuccess"))) { %>
+            <p style="color: green;">Thêm phim thành công</p>
+            <% } else if ("false".equals(request.getParameter("addSuccess"))) { %>
+            <p style="color: red;">Đã xảy ra lỗi khi thêm phim</p>
+            <% } %>
+        </div> 
 
-        <div class="content">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Danh sách phim</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${films}" var="film">
-                        <tr>
-                            <td><a href="adminfilm?filmID=${film.getFilmId()}">${film.getFilmName()}</a></td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-        </div>
-
-        <div id="filmDetails" style="float: right; margin-right: 20px;">
-            <c:if test="${not empty film}">
-                <table class="table2" border="0" style="border-collapse: collapse;">
-                    <caption style="text-decoration: underline">THÔNG TIN PHIM:</caption>
-                    <tbody>
-                        <tr>
-                            <td style="padding: 8px;">Mã phim</td>
-                            <td style="padding: 8px;"><span>${film.getFilmId()}</span></td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 8px;">Tên phim</td>
-                            <td style="padding: 8px;"><span>${film.getFilmName()}</span></td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 8px;">Thời lượng</td>
-                            <td style="padding: 8px;"><span>${film.getDuration()}</span></td>
-                        </tr>
-                        <!-- Thêm các trường thông tin khác của bộ phim nếu cần -->
-                    </tbody>
-                </table>
-            </c:if>
-        </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var manageMoviesLink = document.getElementById('manageMoviesLink');
-            var movieSubMenu = document.getElementById('movieSubMenu');
-
-            manageMoviesLink.addEventListener('click', function (event) {
-                event.preventDefault();     // Ngăn chặn hành động mặc định của thẻ a
-
-                // Hiển thị hoặc ẩn submenu của quản lý phim
-                if (movieSubMenu.style.display === 'none') {
-                    movieSubMenu.style.display = 'block';
-                } else {
-                    movieSubMenu.style.display = 'none';
-                }
-            });
-        });
-         document.addEventListener('DOMContentLoaded', function () {
-        var filmLinks = document.querySelectorAll('.film-link');
-        var filmDetailsContainer = document.getElementById('filmDetails');
-
-        filmLinks.forEach(function (filmLink) {
-            filmLink.addEventListener('click', function (event) {
-                event.preventDefault();
-                var filmId = this.getAttribute('data-film-id');
-                // Gửi yêu cầu AJAX để lấy thông tin chi tiết của phim
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                        if (xhr.status === 200) {
-                            // Hiển thị thông tin chi tiết của phim trong #filmDetails
-                            filmDetailsContainer.innerHTML = xhr.responseText;
-                        } else {
-                            console.error('Đã xảy ra lỗi khi tải dữ liệu phim.');
-                        }
-                    }
-                };
-                xhr.open('GET', 'getFilmDetails?filmId=' + filmId, true);
-                xhr.send();
-            });
+    </body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.nav-link.active').click(function () {
+            $(this).toggleClass('active'); // Thêm hoặc loại bỏ lớp 'active' cho nút
+            $(this).find('.right').toggleClass('fa-angle-left fa-angle-down'); // Chuyển đổi biểu tượng giữa mở và đóng
+            $(this).siblings('.nav-treeview').slideToggle(); // Hiển thị hoặc ẩn danh sách con
         });
     });
-    </script>
-
-</body>
-</html>
+</script>

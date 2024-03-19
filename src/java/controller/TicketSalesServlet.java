@@ -5,6 +5,7 @@
 package controller;
 
 import dal.FilmDAO;
+import dal.TicketDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,13 +13,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import model.Ticket;
+import dal.TicketDAO;
+import java.util.HashMap;
+import java.util.Map;
 import model.Film;
+import model.Showtime;
 
 /**
  *
  * @author admin
  */
-public class AdminFilmServlet extends HttpServlet {
+public class TicketSalesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +43,10 @@ public class AdminFilmServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminFilmServlet</title>");
+            out.println("<title>Servlet TicketSalesServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminFilmServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TicketSalesServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,10 +64,30 @@ public class AdminFilmServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        FilmDAO d = new FilmDAO();
-         List<Film> films = d.getAllFilms();
-        request.setAttribute("films", films);
-        request.getRequestDispatcher("adminfilm.jsp").forward(request, response);
+        // Lấy danh sách các vé từ cơ sở dữ liệu
+        TicketDAO ticketDAO = new TicketDAO();
+        List<Ticket> ticketList = ticketDAO.getAllTickets();
+
+        // Tính toán tổng doanh thu của từng bộ phim
+        Map<Integer, Double> revenueMap = new HashMap<>();
+        for (Ticket ticket : ticketList) {
+            // Lấy thông tin showtime từ vé
+            Showtime showtime = ticket.getShowtime();
+            if (showtime != null) {
+                int filmId = showtime.getFilmId();
+                double ticketPrice = showtime.getTicketPrice();
+                revenueMap.put(filmId, revenueMap.getOrDefault(filmId, 0.0) + ticketPrice);
+            }
+        }
+
+        // Lấy danh sách tất cả các phim
+        FilmDAO filmDAO = new FilmDAO();
+        List<Film> filmList = filmDAO.getAllFilms();
+
+        // Chuyển dữ liệu thống kê và danh sách phim sang trang JSP để hiển thị
+        request.setAttribute("revenueMap", revenueMap);
+        request.setAttribute("filmList", filmList); // Add this line
+        request.getRequestDispatcher("ticketSales.jsp").forward(request, response);
     }
 
     /**

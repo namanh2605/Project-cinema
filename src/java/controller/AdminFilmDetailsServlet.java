@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller;
 
 import dal.FilmDAO;
@@ -11,45 +12,41 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 import model.Film;
 
 /**
  *
  * @author admin
  */
-public class AdminFilmServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+public class AdminFilmDetailsServlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminFilmServlet</title>");
+            out.println("<title>Servlet AdminFilmDetailsServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminFilmServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminFilmDetailsServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -57,16 +54,16 @@ public class AdminFilmServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        FilmDAO d = new FilmDAO();
-         List<Film> films = d.getAllFilms();
-        request.setAttribute("films", films);
-        request.getRequestDispatcher("adminfilm.jsp").forward(request, response);
-    }
+    throws ServletException, IOException {
+         int filmId = Integer.parseInt(request.getParameter("id"));
+         FilmDAO d = new FilmDAO();
+        Film film = d.getFilmById(filmId);
+        request.setAttribute("film", film);
+        request.getRequestDispatcher("adminfilmdetail.jsp").forward(request, response);
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -74,13 +71,23 @@ public class AdminFilmServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    throws ServletException, IOException {
+        int filmId = Integer.parseInt(request.getParameter("filmId"));
+        FilmDAO d = new FilmDAO();
+        // Gọi phương thức xóa bộ phim từ FilmDAO
+        boolean deleteSuccess = d.deleteFilmById(filmId);
+        
+        if (deleteSuccess) {
+            // Nếu xoá thành công, chuyển hướng đến admin.jsp và gửi thông báo thành công
+            response.sendRedirect("admin.jsp?deleteSuccess=true");
+        } else {
+            // Nếu không xoá được, chuyển hướng đến admin.jsp và gửi thông báo không thành công
+            response.sendRedirect("admin.jsp?deleteSuccess=false");
+        }
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
