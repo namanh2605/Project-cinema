@@ -10,6 +10,7 @@
 <%@ page import="model.Film" %>
 <%@ page import="model.Showtime" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="model.Account" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -61,6 +62,13 @@
         </style>
     </head>
     <body>
+        <% 
+                    HttpSession sessionObj = request.getSession(false);
+                    Account loggedInMember = null;
+                    if (sessionObj != null) {
+                        loggedInMember = (Account) sessionObj.getAttribute("loggedInAccount");
+                    }
+                    %>
         <h1>Showtimes</h1>
 
         <h2>Choose a Showtime:</h2>

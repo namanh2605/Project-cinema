@@ -42,6 +42,29 @@ public class ShowtimeDAO extends DBContext {
         return showtimes;
     }
 
+    public Showtime getShowtimeByShowId(int showtimeId) {
+        Showtime showtime = null;
+        String sql = "SELECT * FROM showtime WHERE showtime_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, showtimeId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    showtime = new Showtime();
+                    // Đọc thông tin từ ResultSet và thiết lập cho đối tượng Showtime
+                    showtime.setShowtimeId(rs.getInt("showtime_id"));
+                    showtime.setFilmId(rs.getInt("film_id"));
+                    showtime.setRoomId(rs.getInt("room_id"));
+                    showtime.setDate(rs.getDate("date"));
+                    showtime.setStartTime(rs.getTime("start_time"));
+                    showtime.setTicketPrice(rs.getInt("ticket_price"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return showtime;
+    }
+
     public static void main(String[] args) {
         ShowtimeDAO d = new ShowtimeDAO();
         System.out.println(d.getShowtimesByFilmId(2));

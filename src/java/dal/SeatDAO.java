@@ -51,8 +51,39 @@ public class SeatDAO extends DBContext {
         }
     }
 
+    public boolean areSeatsBooked(String[] seatIds) {
+        boolean result = false;
+        String sql = "SELECT COUNT(*) FROM Seats WHERE seatId = ? AND isOccupied = 1";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            for (String seatId : seatIds) {
+                // Kiểm tra xem seatId có rỗng không
+                if (!seatId.isEmpty()) {
+                    // Chuyển đổi seatId thành số nguyên chỉ khi không rỗng
+                    ps.setInt(1, Integer.parseInt(seatId));
+                    try (ResultSet rs = ps.executeQuery()) {
+                        if (rs.next()) {
+                            int count = rs.getInt(1);
+                            if (count > 0) {
+                                result = true;
+                                break; // Break the loop if any seat is booked
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Handle SQLException if any
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace(); // Handle NumberFormatException if seatId is not a valid integer
+        }
+
+        return result;
+    }
+
     public static void main(String[] args) {
         SeatDAO d = new SeatDAO();
-        System.out.println(d.getSeatsByRoomId(2));
+        // Cập nhật trạng thái ghế và sau đó kiểm tra trạng thái mới của ghế đó
+        d.updateSeatOccupancy(280, true);
     }
 }

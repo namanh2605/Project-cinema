@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="model.Account" %>
+<%@ page import="model.Film" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,18 +39,36 @@
             }
             /* Thêm các thuộc tính cho các phần tử con nếu cần */
         </style>
+
     </head>
+
+   <% 
+    HttpSession sessionObj = request.getSession(false);
+    Account loggedInMember = (Account) session.getAttribute("loggedInAccount");
+
+    // Kiểm tra xem loggedInMember có tồn tại và có thuộc tính "name" không
+    String customerName = (loggedInMember != null) ? loggedInMember.getName() : "Unknown";
+    request.setAttribute("customerName", customerName); // Chuyển giá trị vào phạm vi của request
+%>
+   
     <body>
-        <div class="ticket">
-            <!-- Nội dung vé của bạn sẽ được đặt ở đây -->
-            <h2>Ticket Information</h2>
-            <!-- Đây là các giá trị mẫu, bạn cần thay thế chúng bằng dữ liệu thực từ server của bạn -->
-            <p><strong>Tên người đặt vé:</strong> John Doe</p>
-            <p><strong>Ngày tháng:</strong> 27/09/16</p>
-            <p><strong>Giờ:</strong> 18:20</p>
-            <p><strong>Cơ sở phim:</strong> Twinkl Cinema</p>
-            <p><strong>Số phòng:</strong> 5</p>
-            <p><strong>Ghế số:</strong> 27</p>
-        </div>
-    </body>
+       
+
+    <body>
+    <div class="ticket">
+        <h2>Ticket Information</h2>
+        <p><strong>Tên người đặt vé:</strong> ${customerName}</p>
+        <p><strong>Tên bộ phim:</strong> ${film.filmName}</p>
+        <p><strong>Ngày chiếu:</strong> ${formattedDate}</p>
+        <p><strong>Giờ đặt vé:</strong> ${showtime.startTime}</p>
+        <p><strong>Phòng:</strong> ${room.roomName}</p>
+        <p><strong>Ghế số:</strong> ${selectedSeats}</p>
+    </div>
+    <form action="ticket" method="post">
+        <input type="hidden" name="username" value="${loggedInAccount.getUsername()}">
+        <input type="hidden" name="showtimeId" value="${showtime.getShowtimeId()}">
+        <input type="hidden" name="selectedSeats" value="${param.selectedSeats}">
+        <button type="submit">Confirm</button>
+    </form>
+</body>
 </html>

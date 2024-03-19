@@ -192,7 +192,7 @@
                                     </a>
                                     <div class="card-body">
                                         <h5 class="card-title" style="color: #333; font-size: 15px; font-weight: bold; text-transform: none;">${movie.filmName}</h5>
-                                        <p class="card-text" style="font-weight: bold; font-size: 13px;">Duration: ${movie.duration}</p>
+                                        <p class="card-text" style="font-weight: bold; font-size: 13px;">Duration: ${movie.duration} minutes</p>
                                     </div>
                                 </div>
                                 <button class="buy-ticket-button" style="padding-bottom: 10px" onclick="buyTicket(${movie.filmId})">Chi tiết</button><br/>

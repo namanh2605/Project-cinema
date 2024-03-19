@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dal.SeatDAO;
+import dal.FilmDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,14 +12,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-
-import model.Seat;
+import model.Film;
 
 /**
  *
  * @author admin
  */
-public class SeatServlet extends HttpServlet {
+public class AdminFilmServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +37,10 @@ public class SeatServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SeatServlet</title>");
+            out.println("<title>Servlet AdminFilmServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SeatServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminFilmServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,13 +58,23 @@ public class SeatServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String roomId = request.getParameter("roomId");
-        SeatDAO d = new SeatDAO();
-        List<Seat> seats = d.getSeatsByRoomId(Integer.parseInt(roomId));
-
-        request.setAttribute("seats", seats);
-        request.getRequestDispatcher("bookseat.jsp").forward(request, response);
-
+        FilmDAO filmDAO = new FilmDAO();
+        String filmId = request.getParameter("filmID");
+        List<Film> films = filmDAO.getAllFilms();
+        int filmid_raw = -1; // Giá trị mặc định khi không có giá trị filmId được truyền vào
+        if (filmId != null && !filmId.isEmpty()) {
+            filmid_raw = Integer.parseInt(filmId);
+        }
+        if (filmid_raw == -1) {
+            request.setAttribute("films", films);
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
+        } else {
+            Film film = filmDAO.getFilmById(filmid_raw); // Assuming you have a method like this in your FilmDAO
+            if (film != null) {
+                request.setAttribute("film", film);
+            }
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -79,35 +88,7 @@ public class SeatServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         PrintWriter out = response.getWriter();
-        String cinemaId = request.getParameter("cinemaId");
-        String filmId = request.getParameter("filmId");
-        String showtimeId = request.getParameter("showtimeId");
-        String roomId = request.getParameter("roomId");
-        String selectedSeatsStr = request.getParameter("selectedSeatsString");
-
-        // Kiểm tra xem có ghế nào được chọn không
-        if (selectedSeatsStr != null && !selectedSeatsStr.isEmpty()) {
-            // Chia dữ liệu thành mảng các ghế được chọn
-            String[] selectedSeatsArray = selectedSeatsStr.split(",");
-            // Gọi phương thức cập nhật trạng thái ghế
-            updateSeatOccupancy(selectedSeatsArray);
-            String redirectUrl = "ticket?cinemaId=" + cinemaId + "&filmId=" + filmId + "&showtimeId=" + showtimeId + "&roomId=" + roomId + "&selectedSeats=" + selectedSeatsStr;
-        response.sendRedirect(redirectUrl);
-        } else {
-            // Trả về thông báo lỗi nếu không có ghế nào được chọn
-            out.print("No seats selected.");
-        }
-    }
-
-    // Phương thức cập nhật trạng thái của các ghế đã chọn
-    private void updateSeatOccupancy(String[] selectedSeatsArray) {
-        // Sử dụng SeatDAO để cập nhật trạng thái ghế
-        SeatDAO seatDAO = new SeatDAO();
-        for (String seatIdStr : selectedSeatsArray) {
-            int seatId = Integer.parseInt(seatIdStr);
-            seatDAO.updateSeatOccupancy(seatId, true);
-        }
+        processRequest(request, response);
     }
 
     /**

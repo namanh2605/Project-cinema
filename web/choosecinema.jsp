@@ -8,6 +8,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="model.Cinema" %>
 <%@ page import="model.Film" %>
+<%@ page import="model.Account" %>
 
 <!DOCTYPE html>
 <html>
@@ -16,6 +17,13 @@
         <title>Chọn Rạp</title>
 
     </head>
+    <% 
+                    HttpSession sessionObj = request.getSession(false);
+                    Account loggedInMember = null;
+                    if (sessionObj != null) {
+                        loggedInMember = (Account) sessionObj.getAttribute("loggedInAccount");
+                    }
+    %>
     <body>
         <div class="cinema-container">
             <h1>Chọn Rạp</h1>
