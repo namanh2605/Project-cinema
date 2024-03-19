@@ -42,42 +42,52 @@
 
     </head>
 
-   <% 
-    HttpSession sessionObj = request.getSession(false);
-    Account loggedInMember = (Account) session.getAttribute("loggedInAccount");
+    <% 
+     HttpSession sessionObj = request.getSession(false);
+     Account loggedInMember = (Account) session.getAttribute("loggedInAccount");
 
-    // Kiểm tra xem loggedInMember có tồn tại và có thuộc tính "name" không
-    String customerName = (loggedInMember != null) ? loggedInMember.getName() : "Unknown";
-    request.setAttribute("customerName", customerName); // Chuyển giá trị vào phạm vi của request
-%>
-   
-    <body>
-       
+     // Kiểm tra xem loggedInMember có tồn tại và có thuộc tính "name" không
+     String customerName = (loggedInMember != null) ? loggedInMember.getName() : "Unknown";
+     request.setAttribute("customerName", customerName); // Chuyển giá trị vào phạm vi của request
+    %>
 
     <body>
-    <div class="ticket">
-        <h2>Ticket Information</h2>
-        <p><strong>Tên người đặt vé:</strong> ${customerName}</p>
-        <p><strong>Tên bộ phim:</strong> ${film.filmName}</p>
-        <p><strong>Ngày chiếu:</strong> ${formattedDate}</p>
-        <p><strong>Giờ đặt vé:</strong> ${showtime.startTime}</p>
-        <p><strong>Phòng:</strong> ${room.roomName}</p>
-        <p><strong>Ghế số:</strong> ${selectedSeats}</p>
-    </div>
-    
-    <form action="ticket" method="post">
-        <input type="hidden" name="username" value="${loggedInAccount.getUsername()}">
-        <input type="hidden" name="showtimeId" value="${showtime.getShowtimeId()}">
-        <input type="hidden" name="selectedSeats" value="${param.selectedSeats}">
-        <button type="submit">Confirm</button>
-    </form>
-        <button type="button" onclick="redirectToVnPay()">Thanh toán</button>
-        
-        
-</body>
+
+
+    <body>
+        <div class="ticket">
+            <h2>Ticket Information</h2>
+            <p><strong>Tên người đặt vé:</strong> ${customerName}</p>
+            <p><strong>Tên bộ phim:</strong> ${film.filmName}</p>
+            <p><strong>Ngày chiếu:</strong> ${formattedDate}</p>
+            <p><strong>Giờ đặt vé:</strong> ${showtime.startTime}</p>
+            <p><strong>Phòng:</strong> ${room.roomName}</p>
+            <p><strong>Ghế số:</strong> ${selectedSeats}</p>
+        </div>
+        <%
+    boolean paymentSuccess = false; // Giá trị mặc định
+    String paymentSuccessParam = request.getParameter("paymentSuccess"); // Lấy tham số từ URL
+    if (paymentSuccessParam != null) {
+        paymentSuccess = Boolean.parseBoolean(paymentSuccessParam); // Cập nhật giá trị nếu có
+    }
+        %>
+
+        <form action="ticket" method="post">
+            <input type="hidden" name="username" value="${loggedInAccount.getUsername()}">
+            <input type="hidden" name="showtimeId" value="${showtime.getShowtimeId()}">
+            <input type="hidden" name="selectedSeats" value="${param.selectedSeats}">
+            <% if (paymentSuccess) { %>
+            <button type="submit">Confirm</button>
+            <% } else { %>
+            <button type="button" onclick="redirectToVnPay()">Thanh toán</button>
+            <% } %>
+        </form>
+
+
+    </body>
 </html>
 <script>
     function redirectToVnPay() {
-                    window.location.href = 'vnpay_pay.jsp'; // Chuyển hướng đến trang vn_pay.jsp
-                }
+        window.location.href = 'vnpay_pay.jsp'; // Chuyển hướng đến trang vn_pay.jsp
+    }
 </script>

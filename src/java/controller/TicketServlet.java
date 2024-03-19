@@ -40,7 +40,7 @@ public class TicketServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -73,6 +73,15 @@ public class TicketServlet extends HttpServlet {
         String showtimeIdStr = request.getParameter("showtimeId");
         String roomIdStr = request.getParameter("roomId");
         String selectedSeats = request.getParameter("selectedSeats");
+
+        HttpSession sessionObj = request.getSession();
+        sessionObj.setAttribute("cinemaId", cinemaIdStr);
+        sessionObj.setAttribute("filmId", filmIdStr);
+        sessionObj.setAttribute("showtimeId", showtimeIdStr);
+        sessionObj.setAttribute("roomId", roomIdStr);
+        sessionObj.setAttribute("selectedSeats", selectedSeats);
+        boolean paymentSuccess = true; // Hoặc false tùy theo điều kiện của bạn
+        sessionObj.setAttribute("paymentSuccess", paymentSuccess);
 
         if (cinemaIdStr == null || filmIdStr == null || showtimeIdStr == null || roomIdStr == null) {
             // Xử lý khi một trong các tham số không tồn tại
@@ -119,34 +128,34 @@ public class TicketServlet extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
 
-    // Lấy showtimeId và selectedSeats từ request
-     String showtimeIdStr = request.getParameter("showtimeId");
-    String selectedSeats = request.getParameter("selectedSeats");
+        // Lấy showtimeId và selectedSeats từ request
+        String showtimeIdStr = request.getParameter("showtimeId");
+        String selectedSeats = request.getParameter("selectedSeats");
 
-    // Kiểm tra xem username và showtimeId có tồn tại không
-    if (username == null || showtimeIdStr == null || selectedSeats == null) {
-        // Xử lý khi một trong các tham số không tồn tại
-        // Ví dụ: hiển thị thông báo lỗi, chuyển hướng người dùng đến trang lỗi, vv.
-        response.getWriter().println("Username or showtime ID is missing." + username + showtimeIdStr + selectedSeats);
-        return;
+        // Kiểm tra xem username và showtimeId có tồn tại không
+        if (username == null || showtimeIdStr == null || selectedSeats == null) {
+            // Xử lý khi một trong các tham số không tồn tại
+            // Ví dụ: hiển thị thông báo lỗi, chuyển hướng người dùng đến trang lỗi, vv.
+            response.getWriter().println("Username or showtime ID is missing." + username + showtimeIdStr + selectedSeats);
+            return;
+        }
+
+        // Chuyển đổi showtimeId từ String sang int
+        int showtimeId = Integer.parseInt(showtimeIdStr);
+
+        // Gọi phương thức thêm vé từ TicketDAO
+        TicketDAO ticketDAO = new TicketDAO();
+        boolean success = ticketDAO.addTicket(username, showtimeId, selectedSeats);
+
+        // Kiểm tra và xử lý kết quả
+        if (success) {
+            // Nếu thêm vé thành công, chuyển hướng người dùng về trang chủ
+            response.sendRedirect("home.jsp?success=true");
+        } else {
+            // Nếu thêm vé không thành công, hiển thị thông báo lỗi
+            response.getWriter().println("Failed to add ticket.");
+        }
     }
-
-    // Chuyển đổi showtimeId từ String sang int
-    int showtimeId = Integer.parseInt(showtimeIdStr);
-
-    // Gọi phương thức thêm vé từ TicketDAO
-    TicketDAO ticketDAO = new TicketDAO();
-    boolean success = ticketDAO.addTicket(username, showtimeId, selectedSeats);
-
-    // Kiểm tra và xử lý kết quả
-    if (success) {
-        // Nếu thêm vé thành công, chuyển hướng người dùng về trang chủ
-        response.sendRedirect("home.jsp?success=true");
-    } else {
-        // Nếu thêm vé không thành công, hiển thị thông báo lỗi
-        response.getWriter().println("Failed to add ticket." );
-    }
-}
 
     /**
      * Returns a short description of the servlet.

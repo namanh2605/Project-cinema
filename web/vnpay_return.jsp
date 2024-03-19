@@ -87,6 +87,8 @@
                 </div> 
                 <div class="form-group">
                     <label >Tình trạng giao dịch:</label>
+
+
                     <label>
                         <%
     boolean paymentSuccess = false;
@@ -103,13 +105,22 @@
     // Lưu giá trị paymentSuccess vào session
     HttpSession sessionObj = request.getSession(false);
     session.setAttribute("paymentSuccess", paymentSuccess);
-                        %></label>
+                        %>
+                    </label>
 
-                    <br/><% if (paymentSuccess) { %>
+                    <br/>
+
+                    <%
+                        if (paymentSuccess) {
+                    %>
                     <button id="redirectToTicketBtn" onclick="redirectToTicket()">Tiếp tục đặt vé</button>
-                    <% } else { %>
+                    <%
+                        } else {
+                    %>
                     <button id="redirectToTicketBtn" onclick="home()">Về trang chủ</button>
-                    <% } %>
+                    <%
+                        }
+                    %>
 
                 </div> 
             </div>
@@ -124,25 +135,23 @@
     </body>
 
 </html>
-
 <%
     if (paymentSuccess) {
 %>
-
 <script>
     function redirectToTicket() {
-        var cinemaId = '<%= session.getAttribute("cinemaId") %>';
-        var filmId = '<%= session.getAttribute("filmId") %>';
-        var showtimeId = '<%= session.getAttribute("showtimeId") %>';
-        var roomId = '<%= session.getAttribute("roomId") %>';
-        var selectedSeatsStr  = '<%= session.getAttribute("selectedSeatsStr") %>';
-        // Xây dựng URL với các tham số từ session
-        var url = "ticket?cinemaId=" + cinemaId + "&filmId=" + filmId + "&showtimeId=" + showtimeId + "&roomId=" + roomId + "&selectedSeatsStr=" + selectedSeatsStr;
-        // Chuyển hướng đến URL
-        window.location.href = url;
+    var cinemaId = '<%= session.getAttribute("cinemaId") %>';
+    var filmId = '<%= session.getAttribute("filmId") %>';
+    var showtimeId = '<%= session.getAttribute("showtimeId") %>';
+    var roomId = '<%= session.getAttribute("roomId") %>';
+    var selectedSeats = '<%= session.getAttribute("selectedSeats") %>';
+    var paymentSuccess = '<%= session.getAttribute("paymentSuccess") %>';
+    // Xây dựng URL với các tham số từ session
+    var url = "ticket?cinemaId=" + cinemaId + "&filmId=" + filmId + "&showtimeId=" + showtimeId + "&roomId=" + roomId + "&selectedSeats=" + selectedSeats +  "&paymentSuccess=" + paymentSuccess;
+    // Chuyển hướng đến URL
+    window.location.href = url;
     }
 </script>
-
 <script>
     $(document).ready(function () {
     $.ajax({
@@ -164,10 +173,10 @@
     $(document).ready(function () {
     alert("Đăng ký vé không thành công!");
     });</script>
-<%
+    <%
     
-    }
-%>
+        }
+    %>
 <script>function home() {
     // Chuyển hướng về trang chủ
     window.location.href = "home";

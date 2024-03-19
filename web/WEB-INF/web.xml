@@ -45,7 +45,7 @@
         <url-pattern>/ticketSales</url-pattern>
     </servlet-mapping>
     <session-config>
-        <session-timeout>30</session-timeout>
+        <session-timeout>120</session-timeout>
     </session-config>
     <servlet>
         <servlet-name>ajaxServlet</servlet-name>
