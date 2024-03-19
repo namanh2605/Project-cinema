@@ -12,6 +12,8 @@ public class Room {
      private int roomId;
     private String roomName;
     private int cinemaId;
+        private Cinema cinema;
+
 
     public Room() {
     }
@@ -44,6 +46,14 @@ public class Room {
 
     public void setCinemaId(int cinemaId) {
         this.cinemaId = cinemaId;
+    }
+    
+    public Cinema getCinema() {
+        return cinema;
+    }
+
+    public void setCinema(Cinema cinema) {
+        this.cinema = cinema;
     }
  
     

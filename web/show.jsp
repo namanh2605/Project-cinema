@@ -171,8 +171,8 @@
                     <ul>
                         <li><a href="home"  id="scheduleLink"> Trang chủ</a></li>
                         <li><a href="film" id="movieLink" >Phim Đang Chiếu</a></li>
-                        <li><a href="#" id="newsLink">Tin Mới & Ưu Đãi</a></li>
-                        <li><a href="#" id="memberLink" style="padding-left: 40px" >Thành Viên</a></li>
+                        <li><a href="new" id="newsLink">Tin Mới & Ưu Đãi</a></li>
+                        <li><a href="user.jsp" id="memberLink" style="padding-left: 40px" >Thành Viên</a></li>
                     </ul>
                 </nav>
             </div>

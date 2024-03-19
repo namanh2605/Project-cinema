@@ -6,6 +6,7 @@ package model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -18,6 +19,9 @@ public class Showtime {
     private Date date;
     private Time startTime;
     private int ticketPrice;
+      private Film film;
+      private Room room;
+
 
     public Showtime() {
     }
@@ -78,6 +82,25 @@ public class Showtime {
     public void setTicketPrice(int ticketPrice) {
         this.ticketPrice = ticketPrice;
     }
-    
-    
+      public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
+    }
+     public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+    @Override
+    public String toString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = dateFormat.format(date);
+        return formattedDate + " " + startTime.toString();
+    }
 }
+    

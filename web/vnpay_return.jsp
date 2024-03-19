@@ -122,12 +122,12 @@
 
         </div>  
     </body>
-   
+
 </html>
 
-    <%
-        if (paymentSuccess) {
-    %>
+<%
+    if (paymentSuccess) {
+%>
 <script>
     $(document).ready(function () {
     $.ajax({

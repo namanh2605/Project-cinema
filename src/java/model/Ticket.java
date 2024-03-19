@@ -13,18 +13,34 @@ public class Ticket {
     private int showtimeId;
     private int seatId;
     private String customerId;
-    private String code;
+    private Showtime showtime;
+    private Room room;
+    private Seat seat;
+    private String bookingDate;
+    private Film film;
+    private Cinema cinema;
 
     public Ticket() {
     }
 
-    public Ticket(int ticketId, int showtimeId, int seatId, String customerId, String code) {
+    public Ticket(int ticketId, int showtimeId, int seatId, String customerId) {
         this.ticketId = ticketId;
         this.showtimeId = showtimeId;
         this.seatId = seatId;
         this.customerId = customerId;
-        this.code = code;
     }
+
+    public Ticket(int ticketId, int showtimeId, int seatId, String customerId, String code, Showtime showtime, Room room, Seat seat, String bookingDate) {
+        this.ticketId = ticketId;
+        this.showtimeId = showtimeId;
+        this.seatId = seatId;
+        this.customerId = customerId;
+        this.showtime = showtime;
+        this.room = room;
+        this.seat = seat;
+        this.bookingDate = bookingDate;
+    }
+    
 
     public int getTicketId() {
         return ticketId;
@@ -58,13 +74,49 @@ public class Ticket {
         this.customerId = customerId;
     }
 
-    public String getCode() {
-        return code;
+   
+ public Showtime getShowtime() {
+        return showtime;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setShowtime(Showtime showtime) {
+        this.showtime = showtime;
     }
 
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
+    }
+
+    public String getBookingDate() {
+        return bookingDate;
+    }
+
+    public void setBookingDate(String bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+    public Film getFilm(){
+    return film;
+    }
+    public void setFilm(Film film){
+    this.film = film;
+    }
+    public Cinema getCinema(){
+    return cinema;
+    }
+    public void setCinema(Cinema cinema){
+    this.cinema = cinema;
+    }
     
 }
