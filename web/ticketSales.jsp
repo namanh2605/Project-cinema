@@ -118,13 +118,13 @@
         }
 
          .logout-btn {
-            display: block; /* Chuyển nút đăng xuất thành phần block để nó chiếm toàn bộ chiều rộng của phần tử chứa nó */
-            width: 100%; /* Đặt chiều rộng của nút là 100% để chiếm toàn bộ chiều rộng của thanh điều hướng */
-            padding: 10px 0; /* Đặt khoảng cách padding ở trên và dưới của nút */
-            text-align: center; /* Căn giữa văn bản trong nút */
-            background-color: #4CAF50; /* Màu nền của nút */
-            color: white; /* Màu văn bản của nút */
-            text-decoration: none; /* Loại bỏ gạch chân trên liên kết */
+            display: block; 
+            width: 100%; 
+            padding: 10px 0; 
+            text-align: center; 
+            background-color: #4CAF50;
+            color: white; 
+            text-decoration: none; 
         }
         
         </style>

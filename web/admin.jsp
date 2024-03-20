@@ -60,6 +60,15 @@
             .sidebar .nav-treeview .nav-link {
                 padding-left: 30px;
             }
+             .logout-btn {
+            display: block; 
+            width: 100%; 
+            padding: 10px 0; 
+            text-align: center; 
+            background-color: #4CAF50; 
+            color: white;
+            text-decoration: none; 
+        }
         </style>
     </head>
     <body>
@@ -95,6 +104,7 @@
                     </li>
                 </ul>
             </nav>
+             <a href="logout.jsp" class="logout-btn">Đăng Xuất</a>
         </div>
         <div style="text-align: center; margin-top: 20px;">
             <% if ("true".equals(request.getParameter("deleteSuccess"))) { %>
