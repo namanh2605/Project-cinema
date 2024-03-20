@@ -25,7 +25,6 @@ public class RoomDAO extends DBContext{
                     room.setRoomId(resultSet.getInt("room_id"));
                     room.setRoomName(resultSet.getString("room_name"));
                     room.setCinemaId(resultSet.getInt("cinema_id"));
-                    // Lấy thêm thông tin khác nếu cần
                 }
             }
         } catch (SQLException e) {

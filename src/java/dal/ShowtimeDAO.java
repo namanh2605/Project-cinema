@@ -25,14 +25,12 @@ public class ShowtimeDAO extends DBContext {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Showtime showtime = new Showtime();
-                    // Đọc thông tin từ ResultSet và thiết lập cho đối tượng Showtime
                     showtime.setShowtimeId(rs.getInt("showtime_id"));
                     showtime.setFilmId(rs.getInt("film_id"));
                     showtime.setRoomId(rs.getInt("room_id"));
                     showtime.setDate(rs.getDate("date"));
                     showtime.setStartTime(rs.getTime("start_time"));
                     showtime.setTicketPrice(rs.getInt("ticket_price"));
-                    // Thêm showtime vào danh sách
                     showtimes.add(showtime);
                 }
             }

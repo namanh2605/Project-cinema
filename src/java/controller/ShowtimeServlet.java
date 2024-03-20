@@ -58,7 +58,6 @@ public class ShowtimeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Lấy filmId từ request parameter
         String filmIdStr = request.getParameter("filmId");
         int filmId = 0;
         if (filmIdStr != null && !filmIdStr.isEmpty()) {
@@ -68,11 +67,9 @@ public class ShowtimeServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        // Lấy danh sách showtimes dựa trên filmId
         ShowtimeDAO d = new ShowtimeDAO();
         List<Showtime> showtimes = d.getShowtimesByFilmId(filmId);
 
-        // Chuyển danh sách showtimes sang trang JSP để hiển thị
         request.setAttribute("showtimes", showtimes);
         request.getRequestDispatcher("booktime.jsp").forward(request, response);
 

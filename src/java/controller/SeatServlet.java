@@ -66,7 +66,6 @@ public class SeatServlet extends HttpServlet {
         String showtimeId = request.getParameter("showtimeId");
         String roomId = request.getParameter("roomId");
         String selectedSeatsStr = request.getParameter("selectedSeatsString");
-        // Đặt các giá trị vào session
         sessionObj.setAttribute("cinemaId", cinemaId);
         sessionObj.setAttribute("filmId", filmId);
         sessionObj.setAttribute("showtimeId", showtimeId);
@@ -99,23 +98,17 @@ public class SeatServlet extends HttpServlet {
         String roomId = request.getParameter("roomId");
         String selectedSeatsStr = request.getParameter("selectedSeatsString");
 
-        // Kiểm tra xem có ghế nào được chọn không
         if (selectedSeatsStr != null && !selectedSeatsStr.isEmpty()) {
-            // Chia dữ liệu thành mảng các ghế được chọn
             String[] selectedSeatsArray = selectedSeatsStr.split(",");
-            // Gọi phương thức cập nhật trạng thái ghế
             updateSeatOccupancy(selectedSeatsArray);
             String redirectUrl = "ticket?cinemaId=" + cinemaId + "&filmId=" + filmId + "&showtimeId=" + showtimeId + "&roomId=" + roomId + "&selectedSeats=" + selectedSeatsStr;
         response.sendRedirect(redirectUrl);
         } else {
-            // Trả về thông báo lỗi nếu không có ghế nào được chọn
             out.print("No seats selected.");
         }
     }
 
-    // Phương thức cập nhật trạng thái của các ghế đã chọn
     private void updateSeatOccupancy(String[] selectedSeatsArray) {
-        // Sử dụng SeatDAO để cập nhật trạng thái ghế
         SeatDAO seatDAO = new SeatDAO();
         for (String seatIdStr : selectedSeatsArray) {
             int seatId = Integer.parseInt(seatIdStr);

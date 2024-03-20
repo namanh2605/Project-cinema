@@ -64,11 +64,9 @@ public class TicketSalesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Lấy danh sách các vé từ cơ sở dữ liệu
         TicketDAO ticketDAO = new TicketDAO();
         List<Ticket> ticketList = ticketDAO.getAllTickets();
 
-        // Tính toán tổng doanh thu của từng bộ phim
         Map<Integer, Double> revenueMap = new HashMap<>();
         for (Ticket ticket : ticketList) {
             // Lấy thông tin showtime từ vé
@@ -80,13 +78,11 @@ public class TicketSalesServlet extends HttpServlet {
             }
         }
 
-        // Lấy danh sách tất cả các phim
         FilmDAO filmDAO = new FilmDAO();
         List<Film> filmList = filmDAO.getAllFilms();
 
-        // Chuyển dữ liệu thống kê và danh sách phim sang trang JSP để hiển thị
         request.setAttribute("revenueMap", revenueMap);
-        request.setAttribute("filmList", filmList); // Add this line
+        request.setAttribute("filmList", filmList); 
         request.getRequestDispatcher("ticketSales.jsp").forward(request, response);
     }
 

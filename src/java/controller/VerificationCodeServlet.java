@@ -70,16 +70,11 @@ public class VerificationCodeServlet extends HttpServlet {
     throws ServletException, IOException {
        String verificationCode = (String) request.getSession().getAttribute("verificationCode");
 
-    // Lấy mã code nhập vào từ form
     String enteredCode = request.getParameter("verificationCode");
 
-    // So sánh hai mã code
     if (verificationCode != null && enteredCode != null && verificationCode.equals(enteredCode)) {
-        // Mã code trùng khớp, thực hiện các hành động tiếp theo
-        // Ví dụ: chuyển hướng đến trang xác nhận mật khẩu mới
         response.sendRedirect("resetpassword.jsp");
     } else {
-        // Mã code không trùng khớp, hiển thị thông báo lỗi
         request.setAttribute("error", "Mã xác nhận không đúng. Vui lòng kiểm tra lại.");
         RequestDispatcher dispatcher = request.getRequestDispatcher("verification.jsp");
         dispatcher.forward(request, response);

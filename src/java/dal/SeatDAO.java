@@ -57,25 +57,23 @@ public class SeatDAO extends DBContext {
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             for (String seatId : seatIds) {
-                // Kiểm tra xem seatId có rỗng không
                 if (!seatId.isEmpty()) {
-                    // Chuyển đổi seatId thành số nguyên chỉ khi không rỗng
                     ps.setInt(1, Integer.parseInt(seatId));
                     try (ResultSet rs = ps.executeQuery()) {
                         if (rs.next()) {
                             int count = rs.getInt(1);
                             if (count > 0) {
                                 result = true;
-                                break; // Break the loop if any seat is booked
+                                break; 
                             }
                         }
                     }
                 }
             }
         } catch (SQLException ex) {
-            ex.printStackTrace(); // Handle SQLException if any
+            ex.printStackTrace(); 
         } catch (NumberFormatException ex) {
-            ex.printStackTrace(); // Handle NumberFormatException if seatId is not a valid integer
+            ex.printStackTrace();
         }
 
         return result;
@@ -83,7 +81,6 @@ public class SeatDAO extends DBContext {
 
     public static void main(String[] args) {
         SeatDAO d = new SeatDAO();
-        // Cập nhật trạng thái ghế và sau đó kiểm tra trạng thái mới của ghế đó
         d.updateSeatOccupancy(280, true);
     }
 }

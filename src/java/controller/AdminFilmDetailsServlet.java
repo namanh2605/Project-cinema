@@ -74,14 +74,11 @@ public class AdminFilmDetailsServlet extends HttpServlet {
     throws ServletException, IOException {
         int filmId = Integer.parseInt(request.getParameter("filmId"));
         FilmDAO d = new FilmDAO();
-        // Gọi phương thức xóa bộ phim từ FilmDAO
         boolean deleteSuccess = d.deleteFilmById(filmId);
         
         if (deleteSuccess) {
-            // Nếu xoá thành công, chuyển hướng đến admin.jsp và gửi thông báo thành công
             response.sendRedirect("admin.jsp?deleteSuccess=true");
         } else {
-            // Nếu không xoá được, chuyển hướng đến admin.jsp và gửi thông báo không thành công
             response.sendRedirect("admin.jsp?deleteSuccess=false");
         }
     }

@@ -124,7 +124,6 @@ public class FilmDAO extends DBContext {
         // Thực thi câu lệnh SQL
         int rowsAffected = ps.executeUpdate();
 
-        // Trả về true nếu có ít nhất một dòng được thêm vào cơ sở dữ liệu
         return rowsAffected > 0;
     } catch (SQLException e) {
         e.printStackTrace();

@@ -77,11 +77,10 @@ public class LoginServlet extends HttpServlet {
         AccountDAO d = new AccountDAO();
 
         if (d.checkLogin(username, password)) {
-            // Đăng nhập thành công, lưu thông tin người dùng vào session
             Account account = d.getAccountByUsername(username);
             HttpSession session = request.getSession();
-            session.setAttribute("loggedInAccount", account); // Lưu thông tin tài khoản vào session
-            if (account != null && account.isAdmin()) { // Kiểm tra nếu tài khoản không null và có quyền admin
+            session.setAttribute("loggedInAccount", account); 
+            if (account != null && account.isAdmin()) { 
                 response.sendRedirect("admin.jsp");
             } else {
                 response.sendRedirect("home");

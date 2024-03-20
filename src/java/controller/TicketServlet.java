@@ -80,11 +80,10 @@ public class TicketServlet extends HttpServlet {
         sessionObj.setAttribute("showtimeId", showtimeIdStr);
         sessionObj.setAttribute("roomId", roomIdStr);
         sessionObj.setAttribute("selectedSeats", selectedSeats);
-        boolean paymentSuccess = true; // Hoặc false tùy theo điều kiện của bạn
+        boolean paymentSuccess = true;
         sessionObj.setAttribute("paymentSuccess", paymentSuccess);
 
         if (cinemaIdStr == null || filmIdStr == null || showtimeIdStr == null || roomIdStr == null) {
-            // Xử lý khi một trong các tham số không tồn tại
             response.getWriter().println("One or more parameters are missing.");
             response.getWriter().println("cinemaIdStr: " + cinemaIdStr);
             response.getWriter().println("filmIdStr: " + filmIdStr);
@@ -99,7 +98,6 @@ public class TicketServlet extends HttpServlet {
         int showtimeId = Integer.parseInt(showtimeIdStr);
         int roomId = Integer.parseInt(roomIdStr);
 
-        // Tạo các đối tượng DAO và lấy thông tin cần thiết từ cơ sở dữ liệu
         CinemaDAO cinemaDAO = new CinemaDAO();
         FilmDAO filmDAO = new FilmDAO();
         ShowtimeDAO showtimeDAO = new ShowtimeDAO();
@@ -110,7 +108,6 @@ public class TicketServlet extends HttpServlet {
         Showtime showtime = showtimeDAO.getShowtimeByShowId(showtimeId);
         Room room = roomDAO.getRoomById(roomId);
 
-        // Định dạng ngày trước khi đặt vào thuộc tính request
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String formattedDate = formatter.format(showtime.getDate());
         request.setAttribute("formattedDate", formattedDate);
@@ -132,27 +129,19 @@ public class TicketServlet extends HttpServlet {
         String showtimeIdStr = request.getParameter("showtimeId");
         String selectedSeats = request.getParameter("selectedSeats");
 
-        // Kiểm tra xem username và showtimeId có tồn tại không
         if (username == null || showtimeIdStr == null || selectedSeats == null) {
-            // Xử lý khi một trong các tham số không tồn tại
-            // Ví dụ: hiển thị thông báo lỗi, chuyển hướng người dùng đến trang lỗi, vv.
             response.getWriter().println("Username or showtime ID is missing." + username + showtimeIdStr + selectedSeats);
             return;
         }
 
-        // Chuyển đổi showtimeId từ String sang int
         int showtimeId = Integer.parseInt(showtimeIdStr);
 
-        // Gọi phương thức thêm vé từ TicketDAO
         TicketDAO ticketDAO = new TicketDAO();
         boolean success = ticketDAO.addTicket(username, showtimeId, selectedSeats);
 
-        // Kiểm tra và xử lý kết quả
         if (success) {
-            // Nếu thêm vé thành công, chuyển hướng người dùng về trang chủ
             response.sendRedirect("home.jsp?success=true");
         } else {
-            // Nếu thêm vé không thành công, hiển thị thông báo lỗi
             response.getWriter().println("Failed to add ticket.");
         }
     }

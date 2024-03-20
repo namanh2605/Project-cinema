@@ -23,10 +23,8 @@ import model.Seat;
 public class TicketDAO extends DBContext {
 
     public boolean addTicket(String customerId, int showtimeId, String selectedSeats) {
-        // Tách chuỗi selectedSeats thành mảng các số ghế được chọn
         String[] seats = selectedSeats.split(",");
 
-        // Lặp qua mỗi số ghế và thêm một bản ghi vào bảng ticket cho mỗi số ghế
         for (String seat : seats) {
             int seatId = Integer.parseInt(seat);
             String sql = "INSERT INTO ticket (customer_id, showtime_id, seat_id) VALUES (?, ?, ?)";
@@ -40,7 +38,7 @@ public class TicketDAO extends DBContext {
                 return false;
             }
         }
-        return true; // Trả về true nếu tất cả các bản ghi được thêm thành công
+        return true; 
     }
 
     public List<Ticket> getTicketsByCustomerId(String customerId) {
@@ -94,7 +92,7 @@ public class TicketDAO extends DBContext {
                     ticket.setShowtime(showtime);
                     ticket.setRoom(room);
                     ticket.setSeat(seat);
-                    ticket.setCinema(cinema); // Thiết lập cinema_name
+                    ticket.setCinema(cinema); 
 
                     ticketList.add(ticket);
                 }

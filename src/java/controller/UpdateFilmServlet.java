@@ -85,16 +85,14 @@ public class UpdateFilmServlet extends HttpServlet {
         int genreId = Integer.parseInt(request.getParameter("genreId"));
         String director = request.getParameter("director");
         String cast = request.getParameter("cast");
-        Date releaseDate = Date.valueOf(request.getParameter("releaseDate")); // Chú ý: Đây là cách đơn giản, không an toàn cho tất cả các định dạng ngày, bạn nên xử lý ngoại lệ và kiểm tra ngày đầu vào
+        Date releaseDate = Date.valueOf(request.getParameter("releaseDate"));
         String ageRating = request.getParameter("ageRating");
         FilmDAO d = new FilmDAO();
          boolean updateSuccess = d.updateFilmById(filmId, filmName, duration, description, image, trailer, genreId, director, cast, releaseDate, ageRating);
 
         if (updateSuccess) {
-            // Nếu cập nhật thành công, chuyển hướng về trang admin.jsp và gửi thông báo thành công
             response.sendRedirect("admin.jsp?updateSuccess=true");
         } else {
-            // Nếu không cập nhật được, chuyển hướng về trang admin.jsp và gửi thông báo không thành công
             response.sendRedirect("admin.jsp?updateSuccess=false");
         }
     }
