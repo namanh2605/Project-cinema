@@ -19,59 +19,45 @@
             var currentLanguage = languageIcon.alt;
 
             // Nếu ngôn ngữ hiện tại là tiếng Anh, chuyển sang tiếng Việt và ngược lại
-            if (currentLanguage === "English") {
-                languageIcon.src = "img/vietnam.png";
-                languageIcon.alt = "Tiếng Việt";
-                // Thay đổi tất cả các văn bản trong trang sang tiếng Việt
-                document.getElementById("loginLink").innerText = "Đăng nhập";
-                document.getElementById("registerLink").innerText = "Đăng ký";
-                document.getElementById("scheduleLink").innerText = "Lịch Chiếu Theo Rạp";
-                document.getElementById("movieLink").innerText = "Phim";
-                document.getElementById("theaterLink").innerText = "Rạp";
-                document.getElementById("priceLink").innerText = "Giá Vé";
-                document.getElementById("newsLink").innerText = "Tin Tức & Ưu Đãi";
-                document.getElementById("franchiseLink").innerText = "Nhượng Quyền";
-                document.getElementById("memberLink").innerText = "Thành Viên";
-                document.getElementById("welcomeText").innerText = "Chào mừng bạn đến với rạp chiếu phim ";
-                document.getElementById("discoverText").innerText = "Khám phá những bộ phim mới nhất.";
-                document.getElementById("exploreBtn").innerText = "Khám Phá Ngay";
-                document.getElementById("movieTitle").innerText = "Tiêu đề Phim";
-                document.getElementById("movieGenre").innerText = "Thể loại: Tâm lý, Tình cảm";
-                document.getElementById("movieLength").innerText = "Thời lượng: 131 phút";
-                document.getElementById("buyTicketBtn").innerText = "Đặt Vé";
-                document.getElementById("aboutUsLink").innerText = "Về chúng tôi";
-                document.getElementById("cinemaText").innerText = "Rạp Chiếu Phim";
-                document.getElementById("cinemaLocationLink").innerText = "Rạp Chiếu Phim Hoa Lac - Hotline 0333 333 333";
-                document.getElementById("connectText").innerText = "KẾT NỐI VỚI CHÚNG TÔI";
-                document.getElementById("contactText").innerText = "LIÊN HỆ";
-                document.getElementById("companyText").innerText = "Công Ty Hoa Lac";
-            } else {
-                // Nếu ngôn ngữ hiện tại là tiếng Việt, chuyển sang tiếng Anh
+            if (currentLanguage === "Vietnamese") {
                 languageIcon.src = "img/united-kingdom.png";
                 languageIcon.alt = "English";
-                // Thay đổi tất cả các văn bản trong trang sang tiếng Anh
-                document.getElementById("loginLink").innerText = "Login";
-                document.getElementById("registerLink").innerText = "Register";
-                document.getElementById("scheduleLink").innerText = "Schedule By Theater";
-                document.getElementById("movieLink").innerText = "Movies";
-                document.getElementById("theaterLink").innerText = "Theaters";
-                document.getElementById("priceLink").innerText = "Ticket Prices";
-                document.getElementById("newsLink").innerText = "News & Offers";
-                document.getElementById("franchiseLink").innerText = "Franchise";
-                document.getElementById("memberLink").innerText = "Members";
-                document.getElementById("welcomeText").innerText = "Welcome to Your Movie Theater";
-                document.getElementById("discoverText").innerText = "Discover the latest movies and book your tickets online.";
-                document.getElementById("exploreBtn").innerText = "Explore Now";
-                document.getElementById("movieTitle").innerText = "Movie Title";
-                document.getElementById("movieGenre").innerText = "Genre: Drama, Romance";
-                document.getElementById("movieLength").innerText = "Length: 131 minutes";
-                document.getElementById("buyTicketBtn").innerText = "BUY TICKET";
                 document.getElementById("aboutUsLink").innerText = "About us";
                 document.getElementById("cinemaText").innerText = "Cinema";
                 document.getElementById("cinemaLocationLink").innerText = "Cinemas Hoa Lac - Hotline 0333 333 333";
                 document.getElementById("connectText").innerText = "CONNECT WITH US";
                 document.getElementById("contactText").innerText = "CONTACT";
                 document.getElementById("companyText").innerText = "Hoa Lac Company";
+
+                // Thay đổi các văn bản trong phần header
+                document.getElementById("scheduleLink").innerText = "Home";
+                document.getElementById("movieLink").innerText = "Now Showing";
+                document.getElementById("newsLink").innerText = "News & Offers";
+                document.getElementById("memberLink").innerText = "Members";
+
+                document.getElementById("loginLink").innerText = "Login";
+                document.getElementById("registerLink").innerText = "Register";
+                document.getElementById("filmshow1").innerText = "Movies Now Showing";
+
+            } else {
+                // Nếu ngôn ngữ hiện tại là tiếng Việt, chuyển sang tiếng Anh
+                languageIcon.src = "img/vietnam.png";
+                languageIcon.alt = "Vietnamese";
+                // Thay đổi tất cả các văn bản trong trang sang tiếng Anh
+                document.getElementById("aboutUsLink").innerText = "Về chúng tôi";
+                document.getElementById("cinemaText").innerText = "Rạp Chiếu Phim";
+                document.getElementById("cinemaLocationLink").innerText = "Rạp Chiếu Phim Hoa Lac - Hotline 0333 333 333";
+                document.getElementById("connectText").innerText = "KẾT NỐI VỚI CHÚNG TÔI";
+                document.getElementById("contactText").innerText = "LIÊN HỆ";
+                document.getElementById("companyText").innerText = "Công Ty Hoa Lac";
+                document.getElementById("scheduleLink").innerText = "Trang chủ";
+                document.getElementById("movieLink").innerText = "Phim Đang Chiếu";
+                document.getElementById("newsLink").innerText = "Tin Mới & Ưu Đãi";
+                document.getElementById("memberLink").innerText = "Thành Viên";
+
+                document.getElementById("loginLink").innerText = "Đăng nhập";
+                document.getElementById("registerLink").innerText = "Đăng ký";
+                document.getElementById("filmshow1").innerText = "Phim Đang Chiếu";
             }
         }
         function showVideo() {
@@ -180,7 +166,7 @@
 
         <section>
             <div class="container">
-                <h1>Phim Đang Chiếu</h1><br/>
+                <h1 id="filmshow1">Phim Đang Chiếu</h1><br/>
                 <div class="horizontal-bar"></div><br/>
                 <div class="row">
                     <c:if test="${not empty films}">

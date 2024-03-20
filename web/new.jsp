@@ -9,8 +9,8 @@
 <%@ page import="javax.servlet.http.*" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
+    <head>
+        <meta charset="UTF-8">
         <link rel="stylesheet" href="css/style1.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
@@ -18,31 +18,82 @@
         <title>Your Movie Theater - Home</title>
         <style>
             .container {
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px; /* Space between cards */
-            justify-content: center;
-        }
+                padding: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px; /* Space between cards */
+                justify-content: center;
+            }
             .content {
-    background-color: #121212;
-    color: white;
-    text-align: center;
-    padding: 200px;
-    font-size: 24px;
-}
+                background-color: #121212;
+                color: white;
+                text-align: center;
+                padding: 200px;
+                font-size: 24px;
+            }
 
-.content p {
-    animation: blinker 1s linear infinite;
-}
+            .content p {
+                animation: blinker 1s linear infinite;
+            }
 
-@keyframes blinker {
-    50% {
-        opacity: 0;
-    }
-}
+            @keyframes blinker {
+                50% {
+                    opacity: 0;
+                }
+            }
         </style>
     </head>
+    <script>function changeLanguage() {
+            var languageIcon = document.querySelector(".language-icon");
+            var currentLanguage = languageIcon.alt;
+
+            // Nếu ngôn ngữ hiện tại là tiếng Anh, chuyển sang tiếng Việt và ngược lại
+            if (currentLanguage === "Vietnamese") {
+                languageIcon.src = "img/united-kingdom.png";
+                languageIcon.alt = "English";
+                // Thay đổi các văn bản trong phần footer
+                document.getElementById("aboutUsLink").innerText = "About us";
+                document.getElementById("cinemaText").innerText = "Cinema";
+                document.getElementById("cinemaLocationLink").innerText = "Cinemas Hoa Lac - Hotline 0333 333 333";
+                document.getElementById("connectText").innerText = "CONNECT WITH US";
+                document.getElementById("contactText").innerText = "CONTACT";
+                document.getElementById("companyText").innerText = "Hoa Lac Company";
+
+                // Thay đổi các văn bản trong phần header
+                document.getElementById("scheduleLink").innerText = "Home";
+                document.getElementById("movieLink").innerText = "Now Showing";
+                document.getElementById("newsLink").innerText = "News & Offers";
+                document.getElementById("memberLink").innerText = "Members";
+
+                // Thay đổi các văn bản trong phần pre-header
+                document.getElementById("loginLink").innerText = "Login";
+                document.getElementById("registerLink").innerText = "Register";
+                document.getElementById("cotent1").innerText = "Coming Soon";
+            } else {
+                // Nếu ngôn ngữ hiện tại là tiếng Việt, chuyển sang tiếng Anh
+                languageIcon.src = "img/vietnam.png";
+                languageIcon.alt = "Vietnamese";
+                // Thay đổi các văn bản trong phần footer
+                document.getElementById("aboutUsLink").innerText = "Về chúng tôi";
+                document.getElementById("cinemaText").innerText = "Rạp Chiếu Phim";
+                document.getElementById("cinemaLocationLink").innerText = "Rạp Chiếu Phim Hoa Lac - Hotline 0333 333 333";
+                document.getElementById("connectText").innerText = "KẾT NỐI VỚI CHÚNG TÔI";
+                document.getElementById("contactText").innerText = "LIÊN HỆ";
+                document.getElementById("companyText").innerText = "Công Ty Hoa Lac";
+
+                // Thay đổi các văn bản trong phần header
+                document.getElementById("scheduleLink").innerText = "Trang chủ";
+                document.getElementById("movieLink").innerText = "Phim Đang Chiếu";
+                document.getElementById("newsLink").innerText = "Tin Mới & Ưu Đãi";
+                document.getElementById("memberLink").innerText = "Thành Viên";
+
+                // Thay đổi các văn bản trong phần pre-header
+                document.getElementById("loginLink").innerText = "Đăng nhập";
+                document.getElementById("registerLink").innerText = "Đăng ký";
+                document.getElementById("cotent1").innerText = "Sắp ra mắt";
+            }
+        }
+    </script>
     <body>
         <div class="pre-header">
             <div class="container">
@@ -82,11 +133,11 @@
             </div>
         </header>
 
-    <div class="content">
-        <p>Coming Soon</p>
-    </div>
+        <div class="content">
+            <p id="cotent1">Coming Soon</p>
+        </div>
 
-    <footer class="site-footer bg-dark text-light pt-4">
+        <footer class="site-footer bg-dark text-light pt-4">
             <div class="container">
                 <div class="row footer-content pb-3">
                     <div class="col-md-3 footer-section">
@@ -116,5 +167,5 @@
                 </div>
             </div>
         </footer>
-</body>
+    </body>
 </html>

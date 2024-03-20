@@ -80,6 +80,54 @@
             }
         </style>
     </head>
+    <script>function changeLanguage() {
+            var languageIcon = document.querySelector(".language-icon");
+            var currentLanguage = languageIcon.alt;
+
+            // Nếu ngôn ngữ hiện tại là tiếng Anh, chuyển sang tiếng Việt và ngược lại
+            if (currentLanguage === "Vietnamese") {
+                languageIcon.src = "img/united-kingdom.png";
+                languageIcon.alt = "English";
+                // Thay đổi các văn bản trong phần footer
+                document.getElementById("aboutUsLink").innerText = "About us";
+                document.getElementById("cinemaText").innerText = "Cinema";
+                document.getElementById("cinemaLocationLink").innerText = "Cinemas Hoa Lac - Hotline 0333 333 333";
+                document.getElementById("connectText").innerText = "CONNECT WITH US";
+                document.getElementById("contactText").innerText = "CONTACT";
+                document.getElementById("companyText").innerText = "Hoa Lac Company";
+
+                // Thay đổi các văn bản trong phần header
+                document.getElementById("scheduleLink").innerText = "Home";
+                document.getElementById("movieLink").innerText = "Now Showing";
+                document.getElementById("newsLink").innerText = "News & Offers";
+                document.getElementById("memberLink").innerText = "Members";
+
+                // Thay đổi các văn bản trong phần pre-header
+                document.getElementById("loginLink").innerText = "Login";
+                document.getElementById("registerLink").innerText = "Register";
+            } else {
+                // Nếu ngôn ngữ hiện tại là tiếng Việt, chuyển sang tiếng Anh
+                languageIcon.src = "img/vietnam.png";
+                languageIcon.alt = "Vietnamese";
+                // Thay đổi các văn bản trong phần footer
+                document.getElementById("aboutUsLink").innerText = "Về chúng tôi";
+                document.getElementById("cinemaText").innerText = "Rạp Chiếu Phim";
+                document.getElementById("cinemaLocationLink").innerText = "Rạp Chiếu Phim Hoa Lac - Hotline 0333 333 333";
+                document.getElementById("connectText").innerText = "KẾT NỐI VỚI CHÚNG TÔI";
+                document.getElementById("contactText").innerText = "LIÊN HỆ";
+                document.getElementById("companyText").innerText = "Công Ty Hoa Lac";
+
+                // Thay đổi các văn bản trong phần header
+                document.getElementById("scheduleLink").innerText = "Trang chủ";
+                document.getElementById("movieLink").innerText = "Phim Đang Chiếu";
+                document.getElementById("newsLink").innerText = "Tin Mới & Ưu Đãi";
+                document.getElementById("memberLink").innerText = "Thành Viên";
+
+                // Thay đổi các văn bản trong phần pre-header
+                document.getElementById("loginLink").innerText = "Đăng nhập";
+                document.getElementById("registerLink").innerText = "Đăng ký";
+            }
+        }</script>
     <body>
         <div class="pre-header">
             <div class="container">
