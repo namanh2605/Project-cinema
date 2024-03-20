@@ -117,10 +117,8 @@ public class TicketDAO extends DBContext {
         while (rs.next()) {
             String filmName = rs.getString("film_name");
             Double ticketPrice = rs.getDouble("ticket_price");
-            // Tính tổng doanh thu cho mỗi bộ phim
             filmRevenueMap.put(filmName, filmRevenueMap.getOrDefault(filmName, 0.0) + ticketPrice);
         }
-        // Tạo đối tượng Ticket cho mỗi bộ phim và tổng doanh thu của nó
         for (String filmName : filmRevenueMap.keySet()) {
             Ticket ticket = new Ticket();
             Film film = new Film();
