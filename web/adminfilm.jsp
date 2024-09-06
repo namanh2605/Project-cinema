@@ -32,7 +32,6 @@
             </div>
             <div class="col-md-6">
                 <div id="film-details">
-                    <!-- Thông tin chi tiết về bộ phim sẽ được hiển thị ở đây -->
                 </div>
             </div>
         </div>

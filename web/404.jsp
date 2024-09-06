@@ -30,11 +30,11 @@
     </style>
 </head>
 <body>
-    <%@ include file="header.jsp" %> <!-- Include header -->
+    <%@ include file="header.jsp" %>
     <div class="error-container">
         <img src="img/404.png" alt="404 Error Image" class="error-image">
         <p class="error-message">Error page not found</p>
     </div>
-    <%@ include file="footer.jsp" %> <!-- Include footer -->
+    <%@ include file="footer.jsp" %>
 </body>
 </html>

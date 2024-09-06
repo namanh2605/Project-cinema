@@ -5,7 +5,6 @@
     HttpSession sessionObj = request.getSession();
     Account loggedInMember = (Account) sessionObj.getAttribute("loggedInAccount");
     if (loggedInMember == null) {
-        // Redirect to login page if not logged in
         response.sendRedirect("login.jsp");
     }
 %>
@@ -97,8 +96,8 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="ticketSales" class="nav-link"> <!-- Thêm liên kết mới -->
-                            <i class="nav-icon fas fa-chart-bar"></i> <!-- Icon của biểu đồ hoặc biểu đồ -->
+                        <a href="ticketSales" class="nav-link"> 
+                            <i class="nav-icon fas fa-chart-bar"></i> 
                             <span>Thống kê phim</span>
                         </a>
                     </li>
@@ -133,9 +132,9 @@
 <script>
     $(document).ready(function () {
         $('.nav-link.active').click(function () {
-            $(this).toggleClass('active'); // Thêm hoặc loại bỏ lớp 'active' cho nút
-            $(this).find('.right').toggleClass('fa-angle-left fa-angle-down'); // Chuyển đổi biểu tượng giữa mở và đóng
-            $(this).siblings('.nav-treeview').slideToggle(); // Hiển thị hoặc ẩn danh sách con
+            $(this).toggleClass('active'); 
+            $(this).find('.right').toggleClass('fa-angle-left fa-angle-down'); 
+            $(this).siblings('.nav-treeview').slideToggle();
         });
     });
 </script>

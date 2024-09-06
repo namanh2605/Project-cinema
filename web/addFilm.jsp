@@ -6,27 +6,25 @@
         <title>Add New Film</title>
         <style>
              body {
-                background-color: #1c1c1c; /* Dark background for the whole page */
-                color: #ccc; /* Light grey text color for general text */
+                background-color: #1c1c1c; 
+                color: #ccc; 
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 20px;
             }
             .form-container {
-                width: 50%; /* Adjust the width as needed */
-                margin: auto; /* Center the form horizontally */
-                background-color: #333; /* Dark background color */
+                width: 50%; 
+                margin: auto;
+                background-color: #333; 
                 padding: 20px;
                 border-radius: 10px;
             }
 
-            /* Style the labels */
             label {
                 font-weight: bold;
-                color: #fff; /* White label text color */
+                color: #fff; 
             }
 
-            /* Style the input fields */
             input[type="text"],
             input[type="number"],
             textarea,
@@ -38,11 +36,10 @@
                 border: 1px solid #ccc;
                 border-radius: 4px;
                 box-sizing: border-box;
-                background-color: #444; /* Darker input background color */
-                color: #fff; /* White text color */
+                background-color: #444; 
+                color: #fff; 
             }
 
-            /* Style the submit button */
             button[type="submit"] {
                 background-color: #4CAF50;
                 color: white;
@@ -54,7 +51,6 @@
                 width: 100%;
             }
 
-            /* Change the submit button color on hover */
             button[type="submit"]:hover {
                 background-color: #45a049;
             }
@@ -122,8 +118,8 @@
         });
 
         if (!isValid) {
-            event.preventDefault(); // Prevent form submission
-            alert('Please fill in all fields.'); // Display an alert message
+            event.preventDefault(); 
+            alert('Please fill in all fields.'); 
         }
     });
 });

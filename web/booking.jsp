@@ -11,7 +11,7 @@
 <html lang="en">
 
     <%
- HttpSession sessionObj = request.getSession(); // Lấy hoặc tạo session nếu chưa tồn tại
+ HttpSession sessionObj = request.getSession(); 
  Account loggedInMember = null;
    loggedInMember = (Account) sessionObj.getAttribute("loggedInAccount");
  String filmIdStr = request.getParameter("filmId");
@@ -33,8 +33,8 @@
         <title>Movie Information</title>
         <style>
             body {
-                background-color: #1c1c1c; /* Dark background for the whole page */
-                color: #ccc; /* Light grey text color for general text */
+                background-color: #1c1c1c; 
+                color: #ccc; 
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 20px;
@@ -44,16 +44,16 @@
                 width: 80%;
                 margin: auto;
                 padding: 20px;
-                background-color: #262626; /* Slightly lighter dark background for the container */
-                border-radius: 10px; /* Rounded corners for the container */
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Soft shadow around the container */
+                background-color: #262626; 
+                border-radius: 10px; 
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
             }
 
             .movie-header h1 {
-                border-bottom: 2px solid #E50914; /* Red bottom border for the header */
+                border-bottom: 2px solid #E50914; 
                 padding-bottom: 10px;
                 margin-bottom: 20px;
-                color: #fff; /* White color for the header */
+                color: #fff; 
             }
 
             .movie-details {
@@ -64,16 +64,16 @@
             }
 
             .movie-details img {
-                margin-right: 20px; /* Add space between image and text */
-                border: 6px solid #E50914; /* Red border for the image */
+                margin-right: 20px; 
+                border: 6px solid #E50914; 
             }
 
             .movie-details .text-details {
-                max-width: 60%; /* Limit width of the text details to make room for the image */
+                max-width: 60%; 
             }
 
             .movie-details h2 {
-                color: #E50914; /* Red color for the movie title */
+                color: #E50914; 
                 margin-bottom: 10px;
             }
 
@@ -82,32 +82,32 @@
             }
 
             .button {
-                background-color: #E50914; /* Red background color */
+                background-color: #E50914; 
                 color: white;
-                padding: 15px 30px; /* Larger padding for a bigger button */
+                padding: 15px 30px; 
                 text-decoration: none;
                 border: none;
                 cursor: pointer;
-                border-radius: 25px; /* More pronounced rounded corners */
-                font-size: 18px; /* Larger font size for better readability */
-                font-weight: bold; /* Make the text bold */
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-                transition: all 0.2s ease-in-out; /* Smooth transition for all hover effects */
-                border: 2px solid transparent; /* Transparent border for a solid-state transition */
+                border-radius: 25px; 
+                font-size: 18px; 
+                font-weight: bold; 
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+                transition: all 0.2s ease-in-out; 
+                border: 2px solid transparent; 
             }
 
             .button:hover, .button:focus {
-                background-color: #f21e0a; /* A lighter red for hover state */
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Larger shadow for hover effect */
-                transform: scale(1.05); /* Slightly increase the button size */
-                border-color: #fff; /* White border on hover/focus */
+                background-color: #f21e0a; 
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+                transform: scale(1.05); 
+                border-color: #fff; 
             }
 
             .rating {
                 background-color: #333;
                 color: white;
                 padding: 5px 10px;
-                border-radius: 5px; /* Rounded corners for the rating badge */
+                border-radius: 5px; 
                 margin-bottom: 10px;
             }
 
@@ -147,7 +147,6 @@
                     <p>Release Date: <%= movie.getReleaseDate() %></p>
                     <p>Age Rating: <%= movie.getAgeRating() %></p>
                     <p>Description: <%= movie.getDescription() %></p>
-                    <!-- Các thông tin khác về phim -->
                 </div>
             </div>
             <div>
@@ -161,7 +160,6 @@
                 </form>
                 <% 
                     } else {
-                        // Nếu chưa đăng nhập, hiển thị thông báo yêu cầu đăng nhập
                         out.println("<h1 style=\"color:red\">Please login to booking ticket.</h1>");
                         out.println("<form action=\"login.jsp\" method=\"get\">");
                         out.println("<button type=\"submit\">Go to Login</button>");
@@ -174,7 +172,6 @@
 </html>
 <%
 } else {
-    // Nếu không tìm thấy thông tin phim, hiển thị thông báo
     out.println("Không tìm thấy thông tin phim.");
 }
 %>

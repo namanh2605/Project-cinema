@@ -14,10 +14,10 @@
         <title>Chọn Ghế</title>
         <style>
             body {
-                background-color: #121212; /* Màu nền tối */
-                color: #fff; /* Màu văn bản trắng */
-                font-family: Arial, sans-serif; /* Font-family */
-                margin: 0; /* Remove default margin */
+                background-color: #121212; 
+                color: #fff; 
+                font-family: Arial, sans-serif; 
+                margin: 0;
                 padding: 0; /* Remove default padding */
             }
 
